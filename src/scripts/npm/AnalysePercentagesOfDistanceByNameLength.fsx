@@ -95,7 +95,8 @@ let getRatio len uniqueCount =
                         |> List.filter (fun x -> (fst x) = len) 
                         |> List.head
                         |> snd
-    (((float uniqueCount) / (float totalCount)) * 100.0)
+    let percent = (((float uniqueCount) / (float totalCount)) * 100.0)
+    System.Math.Round(percent, 1)
 
 let levOne = totalNameCounts 
                 |> List.map (fun x ->
@@ -167,10 +168,6 @@ if not(File.Exists(totalsFilePath)) then
     sb.AppendLine(sprintf "2,%i,%s" lte2 per2) |> ignore
     sb.AppendLine(sprintf "3,%i,%s" lte3 per3) |> ignore
     File.WriteAllText(totalsFilePath, sb.ToString())
-
-
-let percentageChartPath = Path.Combine(dataDir, "NpmPercentageChart.png")
-if File.Exists(percentageChartPath) then File.Delete percentageChartPath |> ignore
 
 
 let percentageChart = Chart.Combine([
