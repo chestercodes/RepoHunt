@@ -2,3 +2,15 @@
   max-height: 800px;
   max-width: 3000px; 
 }
+
+html.dimbg .slide-background {
+  opacity: 0.05 !important;
+}
+
+#crossenv-table td {
+  font-size: 27px;
+}
+
+#package-json-info li{
+  font-size: 27px;
+}

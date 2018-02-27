@@ -5,7 +5,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-	<title>reveal.js</title>
+	<title>Hunting typosquatters with F#</title>
 
 	<link rel="stylesheet" href="talk/reveal.js/css/reveal.css">
 	<link rel="stylesheet" href="talk/reveal.js/css/theme/black.css">
@@ -44,11 +44,24 @@
 
 			<section>
 				<h4>Agenda</h4>
-				<p class=" ">me</p>
-				<p class=" ">npm</p>
-				<p class=" ">crossenv attack</p>
-				<p class=" ">hunt</p>
-				<p class=" ">results</p>
+				<pre class="center"><code  data-noescape>var talk = {
+	
+	"sections": [
+		
+		"me",
+
+		"npm",
+
+		"crossenv attack",
+
+		"hunt",
+
+		"results"
+
+	]
+
+}</code></pre>
+
 			</section>
 			<section>
 				<section>
@@ -84,42 +97,129 @@
 					</div>
 				</section>
 			</section>
-			<section>
+			<section data-background-image="talk/img/NpmBackground.png" data-state="dimbg">
 				<section>
 					<h4>npm</h4>
 					<p>node package manager</p>
 					<p>JavaScript open source code repository</p>
-					<p>over 580,000 packages</p>
+
 					<p>accessed through npm cli</p>
+					<pre><code  data-noescape>npm install &lt;package&gt;</code></pre>
+					<p>over 580,000 packages</p>
 				</section>
+
 				<section>
-					<h4>npm - pr - left-pad</h4>
-					<img alt="left-pad" src="talk/img/LeftPad.png" />
+					<h4>npm</h4>
+					<p>580,000 packages?!</p>
+
+					<div class="fragment">
+						<p>JavaScript base library fairly spartan</p>
+						<p>.js community prefers lots of small modules</p>
+					</div>
+
+					<div class="fragment">
+						<blockquote class="twitter-tweet tw-align-center" width="550px" data-lang="en">
+							<p lang="en" dir="ltr">Drinking game for npm users:
+								<br>➀ Think of a noun
+								<br>➁ npm install &lt;noun&gt;
+								<br>➂ If it installs - drink!</p>&mdash; Sindre Sorhus (@sindresorhus)
+							<a href="https://twitter.com/sindresorhus/status/515511151669805056?ref_src=twsrc%5Etfw">September 26, 2014</a>
+						</blockquote>
+					</div>
+
 				</section>
-				<section>
-					<h4>npm - pr - left-pad</h4>
-					<img alt="left-pad" src="talk/img/LeftPad.png" />
-				</section>
+
 				<section>
 					<h4>npm - package.json</h4>
 					<p>JSON object</p>
 					<p>includes properties:</p>
 					<ul>
-						<li>name</li>
-						<li>version</li>
-						<li>description</li>
-						<li>license</li>
-						<li>author &amp; contributors</li>
-						<li>dependencies</li>
-						<li>scripts</li>
+						<span class="fragment highlight-current-green">
+							<li>name</li>
+							<li>version</li>
+						</span>
+						<span class="fragment highlight-current-green">
+							<li>description</li>
+							<li>license</li>
+							<li>author &amp; contributors</li>
+						</span>
+						<span class="fragment highlight-current-green">
+							<li>dependencies</li>
+						</span>
+						<span class="fragment highlight-current-green">
+							<li>scripts</li>
+						</span>
 					</ul>
-					
-					<p></p>
+
 				</section>
-				<section>lots of npm dependencies</section>
+				<section>
+					<h4>npm - package.json</h4>
+					<pre><code  data-noescape>npm install &lt;package&gt;</code></pre>
+					<p class="fragment">dependencies - if present, these are installed first</p>
+					<p class="fragment">scripts</p>
+					<ul id="package-json-info">
+						<div class="fragment">
+
+							<li>scripts are js files or bash</li>
+							<ul>
+								<li>"start": "./server.js"</li>
+								<li>"install": "make &amp;&amp; make install"</li>
+							</ul>
+
+						</div>
+						<li class="fragment">
+							events executed at install:
+							<ul>
+								<li>preinstall</li>
+								<li>install</li>
+								<li>postinstall</li>
+								<li>prepublish</li>
+								<li>prepare</li>
+								<li>prepack</li>
+							</ul>
+						</li>
+					</ul>
+				</section>
+				<section>
+					lots of dependencies
+				</section>
+				<section>
+					LOTS of dependencies
+				</section>
+				<section>
+					<h4>npm - pr - left-pad</h4>
+					<img alt="left-pad" src="talk/img/LeftPad.png" />
+				</section>
+				<section>
+					<h4>npm - pr - passwords</h4>
+					<img alt="passwords" src="talk/img/Passwords.png" />
+				</section>
 			</section>
 
-			<section>
+			<section data-background-image="talk/img/HotPockets.png" data-state="dimbg">
+				<section>
+					<h4>npm - pr - node_modules</h4>
+					<p>Aug 5, 2016</p>
+					<img alt="node_modules" src="talk/img/NodeModulesArticle.PNG" />
+				</section>
+				<section>
+					<h4>npm - pr - node_modules</h4>
+					<p>Express.js - popular server library</p>
+					<p>executes http post on install</p>
+					<div class="fragment">
+						<blockquote class="twitter-tweet tw-align-center" data-lang="en">
+							<p lang="en" dir="ltr">Wham! Bam! Hickory Ham!
+								<a href="https://twitter.com/hashtag/HotPockets?src=hash&amp;ref_src=twsrc%5Etfw">#HotPockets</a>
+								<a href="http://t.co/t7YBz532MO">http://t.co/t7YBz532MO</a>
+								<a href="http://t.co/SUkwWANhQl">pic.twitter.com/SUkwWANhQl</a>
+							</p>&mdash; Hot Pockets (@hotpockets)
+							<a href="https://twitter.com/hotpockets/status/501511389320470528?ref_src=twsrc%5Etfw">August 18, 2014</a>
+						</blockquote>
+					</div>
+				</section>
+			</section>
+
+			<section data-background-image="talk/img/CrossEnvBackground.jpg" data-state="dimbg">
 				<section>
 					crossenv attack
 					<blockquote class="twitter-tweet tw-align-center" data-lang="en">
@@ -173,13 +273,71 @@ req.end();</span>
 </code></pre>
 				</section>
 				<section>
+					<h4>other packages</h4>
+					<table id="crossenv-table">
+						<tr>
+							<td>babelcli</td>
+							<td>cross-env.js</td>
+							<td>crossenv</td>
+							<td>d3.js</td>
+							<td>fabric-js</td>
+						</tr>
+						<tr>
+							<td>ffmepg</td>
+							<td>gruntcli</td>
+							<td>http-proxy.js</td>
+							<td>jquery.js</td>
+							<td>mariadb</td>
+						</tr>
+						<tr>
+							<td>mongose</td>
+							<td>mssql-node</td>
+							<td>mssql.js</td>
+							<td>mysqljs</td>
+							<td>node-fabric</td>
+						</tr>
+						<tr>
+							<td>node-opencv</td>
+							<td>node-opensl</td>
+							<td>node-openssl</td>
+							<td>node-sqlite</td>
+							<td>node-tkinter</td>
+						</tr>
+						<tr>
+							<td>nodecaffe</td>
+							<td>nodefabric</td>
+							<td>nodeffmpeg</td>
+							<td>nodemailer-js</td>
+							<td>nodemailer.js</td>
+						</tr>
+						<tr>
+							<td>nodemssql</td>
+							<td>noderequest</td>
+							<td>nodesass</td>
+							<td>nodesqlite</td>
+							<td>opencv.js</td>
+						</tr>
+						<tr>
+							<td>openssl.js</td>
+							<td>proxy.js</td>
+							<td>shadowsock</td>
+							<td>smb</td>
+							<td>sqlite.js</td>
+						</tr>
+						<tr>
+							<td>sqliter</td>
+							<td>sqlserver</td>
+							<td>tkinter</td>
+						</tr>
+					</table>
+				</section>
+				<section>
 					<blockquote class="twitter-tweet tw-align-center" data-lang="en">
 						<p lang="en" dir="ltr">would be super useful if
 							<a href="https://twitter.com/npmjs?ref_src=twsrc%5Etfw">@npmjs</a> would deny publishing a package if another one with a
 							<a href="https://twitter.com/hashtag/levenshtein?src=hash&amp;ref_src=twsrc%5Etfw">#levenshtein</a> distance &lt;3 is already published !!!</p>&mdash; Andrei Neculau (@andreineculau)
 						<a href="https://twitter.com/andreineculau/status/892490804756983808?ref_src=twsrc%5Etfw">August 1, 2017</a>
 					</blockquote>
-					<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 				</section>
 			</section>
 
