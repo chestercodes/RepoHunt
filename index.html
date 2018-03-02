@@ -28,6 +28,7 @@
 <body>
 	<div class="reveal">
 		<div class="slides">
+
 			<section>
 				<h2>Hunting typosquatters
 					<br/>with F#</h2>
@@ -100,12 +101,18 @@
 			<section data-background-image="talk/img/NpmBackground.png" data-state="dimbg">
 				<section>
 					<h4>npm</h4>
-					<p>node package manager</p>
-					<p>JavaScript open source code repository</p>
+					<div class="fragment">
+						<p>node package manager</p>
+						<p>JavaScript open source code repository</p>
+					</div>
+					<div class="fragment">
+						<p>accessed through npm cli</p>
+						<pre class="center"><code  data-noescape>npm install &lt;package&gt;</code></pre>
+					</div>
+					<div class="fragment">
+						<p>over 580,000 packages</p>
+					</div>
 
-					<p>accessed through npm cli</p>
-					<pre><code  data-noescape>npm install &lt;package&gt;</code></pre>
-					<p>over 580,000 packages</p>
 				</section>
 
 				<section>
@@ -114,7 +121,7 @@
 
 					<div class="fragment">
 						<p>JavaScript base library fairly spartan</p>
-						<p>.js community prefers lots of small modules</p>
+						<p>community prefers lots of small modules</p>
 					</div>
 
 					<div class="fragment">
@@ -131,69 +138,37 @@
 
 				<section>
 					<h4>npm - package.json</h4>
-					<p>JSON object</p>
-					<p>includes properties:</p>
-					<ul>
-						<span class="fragment highlight-current-green">
-							<li>name</li>
-							<li>version</li>
-						</span>
-						<span class="fragment highlight-current-green">
-							<li>description</li>
-							<li>license</li>
-							<li>author &amp; contributors</li>
-						</span>
-						<span class="fragment highlight-current-green">
-							<li>dependencies</li>
-						</span>
-						<span class="fragment highlight-current-green">
-							<li>scripts</li>
-						</span>
-					</ul>
-
+					<pre class="center"><code  data-noescape> {
+	<span class="fragment highlight-current-green">"name": "my-great-package",
+	"version": "1.0.0",</span>
+	<span class="fragment highlight-current-green">"description": "makes code great again",
+	"license": "MIT",
+	"author": "chester",</span>
+	<span class="fragment highlight-current-green">"dependencies": {
+		"dependency1": "1.2.3",
+		"dependency2": "2.3.4"
+	},</span>
+	<span class="fragment highlight-current-green">"scripts": {
+		"preinstall": "pre-install.js",
+		"install": "make &amp;&amp; make install",
+		"postinstall": "post-install.js"
+	}</span>
+}</code></pre>
+					<p> executed at install: preinstall, install, postinstall, prepack, prepublish, prepare</p>
 				</section>
-				<section>
-					<h4>npm - package.json</h4>
-					<pre><code  data-noescape>npm install &lt;package&gt;</code></pre>
-					<p class="fragment">dependencies - if present, these are installed first</p>
-					<p class="fragment">scripts</p>
-					<ul id="package-json-info">
-						<div class="fragment">
 
-							<li>scripts are js files or bash</li>
-							<ul>
-								<li>"start": "./server.js"</li>
-								<li>"install": "make &amp;&amp; make install"</li>
-							</ul>
-
-						</div>
-						<li class="fragment">
-							events executed at install:
-							<ul>
-								<li>preinstall</li>
-								<li>install</li>
-								<li>postinstall</li>
-								<li>prepublish</li>
-								<li>prepare</li>
-								<li>prepack</li>
-							</ul>
-						</li>
-					</ul>
-				</section>
 				<section>
 					lots of dependencies
 				</section>
+
 				<section>
 					LOTS of dependencies
 				</section>
+
 				<section>
-					<h4>npm - pr - left-pad</h4>
-					<img alt="left-pad" src="talk/img/LeftPad.png" />
+					<img src="talk/img/NodeModulesHeavy.png" width="80%" height="80%" />
 				</section>
-				<section>
-					<h4>npm - pr - passwords</h4>
-					<img alt="passwords" src="talk/img/Passwords.png" />
-				</section>
+
 			</section>
 
 			<section data-background-image="talk/img/HotPockets.png" data-state="dimbg">
@@ -203,9 +178,8 @@
 					<img alt="node_modules" src="talk/img/NodeModulesArticle.PNG" />
 				</section>
 				<section>
-					<h4>npm - pr - node_modules</h4>
-					<p>Express.js - popular server library</p>
-					<p>executes http post on install</p>
+					<p>Express.js</p>
+					<p>contains dependency 'yummy' which make http call on install</p>
 					<div class="fragment">
 						<blockquote class="twitter-tweet tw-align-center" data-lang="en">
 							<p lang="en" dir="ltr">Wham! Bam! Hickory Ham!
@@ -217,11 +191,53 @@
 						</blockquote>
 					</div>
 				</section>
+				<section>
+					<p>Ember.js</p>
+					<pre class="center"><code  data-noescape>Ember.js
+- Glimmer
+- - brittanica
+- - - brittanica-g</code></pre>
+					<p>whole dictionary for one definition</p>
+					<pre class="center"><code  data-noescape>{
+  "g": {
+    "page": 1018,
+    "description": "The seventh letter of the US English..."
+  },
+  ...
+  "glimmer": {
+    "page": 1172,
+    "description": "A faint or wavering light, used pri..."
+  },
+  ...
+}</code></pre>
+				</section>
+				<section>
+					<p>babel</p>
+					<div class="fragment">
+						<p>claims that picture of tv chef guy fieri in babel-core dependency</p>
+						<img src="talk/img/GuyFieri.png"  />
+					</div>
+				</section>
+				<section>
+					<div class="fragment">
+						<img src="talk/img/GuyFieriPullRequestInsert.png"  />
+					</div>
+					<div class="fragment">
+						<img src="talk/img/GuyFieriPullRequestRemove.png"  />
+						<img src="talk/img/GuyFieriPullRequestRemoveComment.png"  />
+					</div>
+				</section>
+
+				<section>
+					<h4>npm - pr - passwords</h4>
+					<img alt="passwords" src="talk/img/Passwords.png" />
+				</section>
 			</section>
 
 			<section data-background-image="talk/img/CrossEnvBackground.jpg" data-state="dimbg">
 				<section>
-					crossenv attack
+					<h4>crossenv attack</h4>
+
 					<blockquote class="twitter-tweet tw-align-center" data-lang="en">
 						<p lang="en" dir="ltr">
 							<a href="https://twitter.com/kentcdodds?ref_src=twsrc%5Etfw">@kentcdodds</a> Hi Kent, it looks like this npm package is stealing env variables on install, using your cross-env
@@ -332,15 +348,136 @@ req.end();</span>
 					</table>
 				</section>
 				<section>
-					<blockquote class="twitter-tweet tw-align-center" data-lang="en">
-						<p lang="en" dir="ltr">would be super useful if
-							<a href="https://twitter.com/npmjs?ref_src=twsrc%5Etfw">@npmjs</a> would deny publishing a package if another one with a
-							<a href="https://twitter.com/hashtag/levenshtein?src=hash&amp;ref_src=twsrc%5Etfw">#levenshtein</a> distance &lt;3 is already published !!!</p>&mdash; Andrei Neculau (@andreineculau)
-						<a href="https://twitter.com/andreineculau/status/892490804756983808?ref_src=twsrc%5Etfw">August 1, 2017</a>
-					</blockquote>
+					<h4>crossenv - mitigate?</h4>
+					<div class="fragment">
+						<blockquote class="twitter-tweet tw-align-center" data-conversation="none" data-lang="en">
+							<p lang="en" dir="ltr">would be super useful if
+								<a href="https://twitter.com/npmjs?ref_src=twsrc%5Etfw">@npmjs</a> would deny publishing a package if another one with a
+								<a href="https://twitter.com/hashtag/levenshtein?src=hash&amp;ref_src=twsrc%5Etfw">#levenshtein</a> distance &lt;3 is already published !!!</p>&mdash; Andrei Neculau (@andreineculau)
+							<a href="https://twitter.com/andreineculau/status/892490804756983808?ref_src=twsrc%5Etfw">August 1, 2017</a>
+						</blockquote>
+					</div>
+					<p class="fragment">Levenshtein distance validation, reject package names of distance &lt; 3 to another package?</p>
+
+				</section>
+
+				<section>
+					<h4>Levenshtein distance</h4>
+					<p>explanation</p>
+				</section>
+
+				<section>
+					<h4>Levenshtein distance</h4>
+					<p>examples from crossenv</p>
+				</section>
+
+			</section>
+
+			<section>
+				<section>
+					<p>search npm for existing typosquatters</p>
+					<p>low distance pairs of names
+						<br/>crossenv and cross-env
+						<br/> typosquatting?</p>
+					<p>find low distances, aggregate by author</p>
+					<p>determine efficacy of name validation</p>
+					<p>over 580,000 packages ~ 1.7 E11 combinations</p>
+				</section>
+
+			</section>
+
+			<section data-background-image="talk/img/CouchDb.png" data-state="dimbg">
+				<section>
+					<h4>data</h4>
+					<p>npmjs.com data stored in CouchDB database</p>
+					<ul>
+						<li>metadata - https://skimdb.npmjs.com/</li>
+						<li>all - https://fullfatdb.npmjs.com/</li>
+					</ul>
+					<p>CouchDB easy to locally replicate</p>
+					<pre class="center"><code  data-noescape># create the database
+curl -X PUT http://localhost:5984/registry
+# replicate
+curl -d '{"source":"https://skimdb.npmjs.com/registry", "target":"registry"}' \
+	-H "Content-Type: application/json" \
+	-X POST http://localhost:5984/_replicate</code></pre>
+				</section>
+
+				<section>
+					<p>key-value store, package name is key</p>
+					<p>value is JSON object:</p>
+					<pre class="center"><code  data-noescape>{
+  "_id": "d3fc",
+  <span class="fragment highlight-current-green">"name": "d3fc"</span>,
+  "time": { "13.1.1": "2017-10-16T16:20:51.718Z"},
+  "maintainers": [ 
+    <span class="fragment highlight-current-green">{ "name": "chrisprice" }, 
+    { "name": "colineberhardt" }</span>
+  ],
+  "dist-tags": { "latest": "13.1.1" },
+  "versions": {
+    "13.1.1": {
+      "name": "d3fc",
+      "the rest of the": "package.json ..."
+    }
+  }
+}</code></pre>
+				</section>
+
+				<section>
+					<p>To query CouchDB need to write View</p>
+					<p>JavaScript function(s) map (and reduce)</p>
+					<pre class="center"><code data-noescape>function(doc) {
+  var authors = []; // todo get the authors
+  emit(doc._id, authors);
+}</code></pre>
+					<p>returns JSON</p>
+					<pre class="center"><code data-noescape>{
+  "rows": [ 
+    { "id": "d3fc", 
+      "key": "d3fc", 
+      "value": [ "chrisprice", "colineberhardt" ]}
+  ]
+}</code></pre>
 				</section>
 			</section>
 
+			<section>
+				<h4>hunt</h4>
+				<ul>
+					<li>find Levenshtein distance algorithm</li>
+					<li>reduce search space
+						<ul>
+							<li>choose max distance - 3</li>
+							<li>filter names by length - no need to compare react and react-geocoder-autocomplete</li>
+						</ul>
+					</li>
+					<li>run pairs in parallel, save distance &lt; 4</li>
+				</ul>
+			</section>
+
+			<section>
+				<h4>F# parallel</h4>
+				<p>async</p>
+				<p>code demo </p>
+			</section>
+
+			<section>
+				<h4>hunt</h4>
+				<p>slow, not going to process for weeks</p>
+				<p>back to drawing board</p>
+			</section>
+
+
+
+			<section>
+				<section>
+					<h4>hunt - attempt 2</h4>
+					<p>found article on speeding calculation up</p>
+					<p>implement algorithm in C#</p>
+				</section>
+
+			</section>
 		</div>
 	</div>
 
