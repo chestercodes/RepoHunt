@@ -29,6 +29,7 @@
 	<div class="reveal">
 		<div class="slides">
 
+
 			<section>
 				<h2>Hunting typosquatters
 					<br/>with F#</h2>
@@ -215,16 +216,16 @@
 					<p>babel</p>
 					<div class="fragment">
 						<p>claims that picture of tv chef guy fieri in babel-core dependency</p>
-						<img src="talk/img/GuyFieri.png"  />
+						<img src="talk/img/GuyFieri.png" />
 					</div>
 				</section>
 				<section>
 					<div class="fragment">
-						<img src="talk/img/GuyFieriPullRequestInsert.png"  />
+						<img src="talk/img/GuyFieriPullRequestInsert.png" />
 					</div>
 					<div class="fragment">
-						<img src="talk/img/GuyFieriPullRequestRemove.png"  />
-						<img src="talk/img/GuyFieriPullRequestRemoveComment.png"  />
+						<img src="talk/img/GuyFieriPullRequestRemove.png" />
+						<img src="talk/img/GuyFieriPullRequestRemoveComment.png" />
 					</div>
 				</section>
 
@@ -363,12 +364,21 @@ req.end();</span>
 
 				<section>
 					<h4>Levenshtein distance</h4>
-					<p>explanation</p>
+					<p>measure of the similarity between two strings, it is the number of deletions, insertions, or substitutions required
+						to transform one string into another</p>
+					<p>test -> tent = 1 substitution</p>
+					<p>test -> rent = 2 substitutions</p>
+					<p>test -> tests = 1 insertion</p>
+					<p>test -> tested = 2 insertions</p>
 				</section>
 
 				<section>
-					<h4>Levenshtein distance</h4>
-					<p>examples from crossenv</p>
+					<h4>hacktask packages</h4>
+					<p>crossenv -> cross-env - dist = 1</p>
+					<p>babelcli -> babel-cli - dist = 1</p>
+					<p>ffmepg -> ffmpeg - dist = 2</p>
+					<p>mysqljs -> mysql - dist = 2</p>
+					<p>d3.js -> d3 - dist = 3</p>
 				</section>
 
 			</section>
@@ -455,26 +465,56 @@ curl -d '{"source":"https://skimdb.npmjs.com/registry", "target":"registry"}' \
 					<li>run pairs in parallel, save distance &lt; 4</li>
 				</ul>
 			</section>
-
-			<section>
-				<h4>F# parallel</h4>
-				<p>async</p>
-				<p>code demo </p>
-			</section>
-
-			<section>
-				<h4>hunt</h4>
-				<p>slow, not going to process for weeks</p>
-				<p>back to drawing board</p>
-			</section>
-
-
-
 			<section>
 				<section>
-					<h4>hunt - attempt 2</h4>
-					<p>found article on speeding calculation up</p>
-					<p>implement algorithm in C#</p>
+					<h4>F# async</h4>
+					<p>can use standard .NET classes:
+						<ul>
+							<li>Thread</li>
+							<li>AutoResetEvent</li>
+							<li>BackgroundWorker</li>
+							<li>IAsyncResult</li>
+						</ul>
+					</p>
+					<p>Task Parallel Library</p>
+					<p>F# features:
+						<ul>
+							<li>asynchronous workflows</li>
+							<li>messages and agents</li>
+						</ul>
+					</p>
+				</section>
+
+				<section>
+					<h4>asynchronous workflows</h4>
+					<p>object which encapsulates background task</p>
+					<p>Async&lt;t&gt; class that wraps block</p>
+					<img src="talk/img/AsyncParallelTypes.png" height="80%" width="80%" />
+				</section>
+
+				<section>
+					<video src="talk/img/AsyncFSharp.mp4" controls>Browser says no</video>
+				</section>
+
+				<section>
+					<p>implemented processing with workflows</p>
+					<p>wrote subset of combinations to disk</p>
+					<p>slow, take weeks to run</p>
+					<p>found article optimising calculation using Trie</p>
+					<p>implement algorithm in C#, closer to article language</p>
+					<p>build Trie data structure, run algorithm against each word</p>
+					<p>use agents for parallelism</p>
+				</section>
+			</section>
+
+			<section>
+				
+				<section>
+					<h4>messages and agents</h4>
+
+					<p>create actors, communicate via messages</p>
+					<p>processes typed messages one by one from inbox</p>
+					
 				</section>
 
 			</section>
