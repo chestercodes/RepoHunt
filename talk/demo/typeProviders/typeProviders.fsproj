@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <PackageReference Include="FSharp.Data" Version="2.4.5" />
+    <PackageReference Include="SQLProvider" Version="1.1.37" />
   </ItemGroup>
   <Import Project="fsc.props" />
 </Project>

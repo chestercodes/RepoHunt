@@ -1,7 +1,7 @@
 ﻿open FSharp.Data
 open FSharp.Data.Sql
 
-let [<Literal>] CsvSchema = ",,Date=String,,,,,,,,,Expense Code=String,"
+let [<Literal>] CsvSchema = """,,Date=String,,,,,,,,,Expense Code=String,"""
 let [<Literal>] CsvUrl = "https://raw.githubusercontent.com/Devon-County-Council/spending/master/DCCSpendingOver500_201801.csv"
 type Grants = CsvProvider<CsvUrl, Schema=CsvSchema>
 let [<Literal>] ConnectionString = "Data Source=" + __SOURCE_DIRECTORY__ + "\\Suppliers.sqlite;Version=3;foreign keys=true"
