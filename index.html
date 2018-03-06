@@ -155,16 +155,12 @@
 		"postinstall": "post-install.js"
 	}</span>
 }</code></pre>
-					<p> executed at install: preinstall, install, postinstall, prepack, prepublish, prepare</p>
+					<p> executed at install:
+						<br/> preinstall, install, postinstall, prepack, prepublish, prepare</p>
 				</section>
 
-				<section>
-					lots of dependencies
-				</section>
-
-				<section>
-					LOTS of dependencies
-				</section>
+				<section data-external="CreateReactAppDependencies1.html"> </section>
+				<section data-external="CreateReactAppDependencies2.html"> </section>
 
 				<section>
 					<img src="talk/img/NodeModulesHeavy.png" width="80%" height="80%" />
@@ -229,10 +225,11 @@
 					</div>
 				</section>
 
+				<!-- 
 				<section>
 					<h4>npm - pr - passwords</h4>
 					<img alt="passwords" src="talk/img/Passwords.png" />
-				</section>
+				</section> -->
 			</section>
 
 			<section data-background-image="talk/img/CrossEnvBackground.jpg" data-state="dimbg">
@@ -290,7 +287,7 @@ req.end();</span>
 </code></pre>
 				</section>
 				<section>
-					<h4>other packages</h4>
+					<h4>hacktask - other packages</h4>
 					<table id="crossenv-table">
 						<tr>
 							<td>babelcli</td>
@@ -362,38 +359,53 @@ req.end();</span>
 
 				</section>
 
+				<!-- html formatting is ignored for label tags on my machine -->
 				<section>
 					<h4>Levenshtein distance</h4>
 					<p>measure of the similarity between two strings, it is the number of deletions, insertions, or substitutions required
 						to transform one string into another</p>
-					<p>test -> tent = 1 substitution</p>
-					<p>test -> rent = 2 substitutions</p>
-					<p>test -> tests = 1 insertion</p>
-					<p>test -> tested = 2 insertions</p>
+					<p>
+						<label>te<span class="fragment highlight-current-green" data-fragment-index="1">s</span>t -> te<span class="fragment highlight-current-green" data-fragment-index="1">n</span>t = <span class="fragment highlight-current-green" data-fragment-index="1">1 substitution</span></label>
+					</p>
+					<p>
+						<label><span class="fragment highlight-current-green" data-fragment-index="2">t</span>e<span class="fragment highlight-current-green" data-fragment-index="2">s</span>t -> <span class="fragment highlight-current-green" data-fragment-index="2">r</span>e<span class="fragment highlight-current-green" data-fragment-index="2">n</span>t = <span class="fragment highlight-current-green" data-fragment-index="2">2 substitutions</span></label>
+					</p>
+					<p>
+						<label> test -> test<span class="fragment highlight-current-green" data-fragment-index="3">s</span> = <span class="fragment highlight-current-green" data-fragment-index="3">1 insertion</span></label>
+					</p>
+					<p>
+						<label>test -> test<span class="fragment highlight-current-green" data-fragment-index="4">ed</span> = <span class="fragment highlight-current-green" data-fragment-index="4">2 insertions</span></label>
+					</p>
 				</section>
 
 				<section>
 					<h4>hacktask packages</h4>
-					<p>crossenv -> cross-env - dist = 1</p>
-					<p>babelcli -> babel-cli - dist = 1</p>
-					<p>ffmepg -> ffmpeg - dist = 2</p>
-					<p>mysqljs -> mysql - dist = 2</p>
-					<p>d3.js -> d3 - dist = 3</p>
+					<p>
+						<label>crossenv -> cross<span class="fragment highlight-current-green" data-fragment-index="1">-</span>env - dist = 1</label>
+					</p>
+					<p>
+						<label>babelcli -> babel<span class="fragment highlight-current-green" data-fragment-index="1">-</span>cli - dist = 1</label>
+					</p>
+					<p>
+						<label>ffm<span class="fragment highlight-current-green" data-fragment-index="1">ep</span>g -> ffm<span class="fragment highlight-current-green" data-fragment-index="1">pe</span>g - dist = 2</label>
+					</p>
+					<p>
+						<label>mysql<span class="fragment highlight-current-green" data-fragment-index="1">js</span> -> mysql - dist = 2</label>
+					</p>
+					<p>
+						<label>d3<span class="fragment highlight-current-green" data-fragment-index="1">.js</span> -> d3 - dist = 3</label>
+					</p>
 				</section>
 
-			</section>
-
-			<section>
 				<section>
+					<h4>other attacks?</h4>
 					<p>search npm for existing typosquatters</p>
 					<p>low distance pairs of names
 						<br/>crossenv and cross-env
 						<br/> typosquatting?</p>
 					<p>find low distances, aggregate by author</p>
-					<p>determine efficacy of name validation</p>
-					<p>over 580,000 packages ~ 1.7 E11 combinations</p>
+					<p>need package names and authors</p>
 				</section>
-
 			</section>
 
 			<section data-background-image="talk/img/CouchDb.png" data-state="dimbg">
@@ -449,47 +461,62 @@ curl -d '{"source":"https://skimdb.npmjs.com/registry", "target":"registry"}' \
       "value": [ "chrisprice", "colineberhardt" ]}
   ]
 }</code></pre>
+					<p>can use CouchDB view to get package names and authors</p>
 				</section>
 			</section>
 
 			<section>
-				<h4>hunt</h4>
-				<ul>
-					<li>find Levenshtein distance algorithm</li>
-					<li>reduce search space
+				<section>
+					<h4>hunt</h4>
+
+					<p>over 580,000 packages ~ 1.7 E11 combinations</p>
+
+					<p>Levenshtein distance algorithm
 						<ul>
-							<li>choose max distance - 3</li>
-							<li>filter names by length - no need to compare react and react-geocoder-autocomplete</li>
+							<li>googling provides a few implementations</li>
+							<li>fastest builds Trie from package names and uses max distance to limit computations</li>
+							<li>if distance(package, react-modal) > max,
+								<br/> no point running distance(package, react-modal-bootstrap)</li>
 						</ul>
-					</li>
-					<li>run pairs in parallel, save distance &lt; 4</li>
-				</ul>
-			</section>
-			<section>
+					</p>
+					<p>run pairs in parallel, save distance &lt; 4 to csv</p>
+
+				</section>
+
 				<section>
 					<h4>F# async</h4>
-					<p>can use standard .NET classes:
-						<ul>
-							<li>Thread</li>
-							<li>AutoResetEvent</li>
-							<li>BackgroundWorker</li>
-							<li>IAsyncResult</li>
-						</ul>
-					</p>
-					<p>Task Parallel Library</p>
-					<p>F# features:
-						<ul>
-							<li>asynchronous workflows</li>
-							<li>messages and agents</li>
-						</ul>
-					</p>
+					<div class="fragment">
+						<p>can use standard .NET classes:
+							<ul>
+								<li>Thread</li>
+								<li>AutoResetEvent</li>
+								<li>BackgroundWorker</li>
+								<li>IAsyncResult</li>
+							</ul>
+						</p>
+					</div>
+
+					<p class="fragment">Task Parallel Library</p>
+					<div class="fragment">
+						<p>F# features:
+							<ul>
+								<li>asynchronous workflows</li>
+								<li>messages and agents</li>
+							</ul>
+						</p>
+					</div>
+
 				</section>
 
 				<section>
 					<h4>asynchronous workflows</h4>
 					<p>object which encapsulates background task</p>
-					<p>Async&lt;t&gt; class that wraps block</p>
-					<img src="talk/img/AsyncParallelTypes.png" height="80%" width="80%" />
+					<p>build Async&lt;'a&gt; class from expression</p>
+					<p>Async&lt;'a&gt; similar concept to TPL's Task&lt;T&gt;</p>
+				</section>
+
+				<section>
+					<img src="talk/img/AsyncParallelTypes.png" width="100%" />
 				</section>
 
 				<section>
@@ -497,18 +524,16 @@ curl -d '{"source":"https://skimdb.npmjs.com/registry", "target":"registry"}' \
 				</section>
 
 				<section>
-					<p>implemented processing with workflows</p>
-					<p>wrote subset of combinations to disk</p>
-					<p>slow, take weeks to run</p>
-					<p>found article optimising calculation using Trie</p>
-					<p>implement algorithm in C#, closer to article language</p>
-					<p>build Trie data structure, run algorithm against each word</p>
-					<p>use agents for parallelism</p>
+					<p>initially tried to write with workflows</p>
+					<p>added complexity due to resource contention</p>
+					<p>writing to multiple files and combining</p>
+					<p>re-thought approach</p>
 				</section>
+
 			</section>
 
 			<section>
-				
+
 				<section>
 					<h4>messages and agents</h4>
 
@@ -518,11 +543,103 @@ curl -d '{"source":"https://skimdb.npmjs.com/registry", "target":"registry"}' \
 				</section>
 
 				<section>
-					<img src="" width="80%" height="80%" />
-					
+					<h4>actor paralellism</h4>
+					<img src="talk/img/ActorSystemDiagram.png" width="30%" style="float: right">
+					<div style="width: 60%;">
+						<p>need to create Trie from package names</p>
+						<p>want to paralellise the processing for each package name</p>
+						<p>can only have one actor writing to csv</p>
+					</div>
+
+				</section>
+
+				<section>
+					<p>actor system demo...</p>
+				</section>
+			</section>
+
+			<section>
+				<section>
+					<h4>results analysis</h4>
+					<p>imported csv file into sqlite database</p>
+					<p>can use type providers to analyse the results</p>
+				</section>
+
+				<section>
+					<h4>type providers</h4>
+					<p>idiomatic data access - F# 'killer feature'</p>
+					<blockquote>An F# type provider is a component that provides types, properties, and methods for use in your program</blockquote>
+					<p>compile time meta-programming</p>
+
+				</section>
+
+				<section>
+					<p>type providers demo</p>
+					<img class="fragment" src="talk/img/DevonCountyCouncilGithub.png" height="100%" />
 				</section>
 
 			</section>
+
+			<section>
+				<section>
+					<h4>results</h4>
+					<p>objectives
+						<ul>
+							<li>aggregate packages with low distance to others by author, join with popular packages to reduce noise</li>
+							<li>identify hacktask and other typosquatting users</li>
+							<li>determine whether name validation would be effective </li>
+						</ul>
+					</p>
+				</section>
+
+				<section>
+					<h4>user - hacktask</h4>
+					<p>ranked 476 with 4 packages similar to others</p>
+					<img src="talk/img/HacktaskQueryResult.png" />
+					<p>hard to spot, masked by many other users </p>
+					<p>other interesting things:</p>
+				</section>
+
+				<section>
+					<h4>user - destroyyer</h4>
+					<p>packages - scaala, jaava, akka, ifelse, aple</p>
+					<p>clearly typosquatting, no obvious malicious packages</p>
+					<img src="talk/img/NpmUserDestroyyer.png" height="90%" />
+				</section>
+
+				<section>
+					<h4>package - accesstoken</h4>
+					<p>my new favourite package</p>
+					<img src="talk/img/AccesstokenPackageJson.png" width="80%" />
+					<img src="talk/img/AccesstokenMain.png" width="45%" style="float: left" />
+					<img src="talk/img/AccesstokenConfig.png" width="45%" style="float: right" />
+				</section>
+
+				<section>
+					<h4>user - fdhadzh</h4>
+					<p>user with lots of packages with typosquatting names:</p>
+					<pre style="font-size:0.6em;">
+adobephotoshop, adobe-photoshop, afer, anoher, Apple, bayer, 
+beween, comit, dylan, Elliot, emacs, foxconn, Fsociety, gmail-api,
+gmail-google, gnu, google-docs, IPhoneSE, materialdesign, Microsoft, 
+MrRobot, netfliks, panasonic, sandisk, scala, symantec, toshiba, 
+TwitterBootstrap, vbasic, verisign, visualbasic, youcanttouchme</pre>
+					<p>and others including 'I'</p>
+				</section>
+
+				<section>
+					<h4>package - I</h4>
+					<p>maintainers: 'fdhadzh' and 'brittanica'</p>
+					<p>Just import it and all your problems will go away! </i></p>
+					<img src="talk/img/PackageIGithub.png" width="70%" />
+					<img src="talk/img/PackageIRunkit.png" width="70%"  />
+
+					
+				</section>
+
+
+			</section>
+
 		</div>
 	</div>
 
@@ -538,7 +655,8 @@ curl -d '{"source":"https://skimdb.npmjs.com/registry", "target":"registry"}' \
 				{ src: 'talk/reveal.js/plugin/markdown/marked.js' },
 				{ src: 'talk/reveal.js/plugin/markdown/markdown.js' },
 				{ src: 'talk/reveal.js/plugin/notes/notes.js', async: true },
-				{ src: 'talk/reveal.js/plugin/highlight/highlight.js', async: true, callback: function () { hljs.initHighlightingOnLoad(); } }
+				{ src: 'talk/reveal.js/plugin/highlight/highlight.js', async: true, callback: function () { hljs.initHighlightingOnLoad(); } },
+				{ src: 'talk/reveal.js/plugin/external/external.js', condition: function () { return !!document.querySelector('[data-external]'); } }
 			]
 		});
 	</script>

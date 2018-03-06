@@ -1,0 +1,24 @@
+{
+  "name": "repohunt-serve",
+  "version": "1.0.0",
+  "description": "serve static file",
+  "main": "serve_external.js",
+  "dependencies": {
+    "connect": "^3.6.6",
+    "serve-static": "^1.13.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CBurbidge/RepoHunt.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/CBurbidge/RepoHunt/issues"
+  },
+  "homepage": "https://github.com/CBurbidge/RepoHunt#readme"
+}

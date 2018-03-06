@@ -22,7 +22,6 @@ let writerAgent = MailboxProcessor<WriterMessage>.Start(fun inbox->
             return! messageLoop nStopsSeen
 
     }
-    // start the loop 
     messageLoop 0
 )
 let r = new Random()
