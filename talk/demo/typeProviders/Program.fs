@@ -1,25 +1,7 @@
-﻿open FSharp.Data
-open FSharp.Data.Sql
-
-
-let [<Literal>] CsvUrl = "https://raw.githubusercontent.com/Devon-County-Council/spending/master/DCCSpendingOver500_201801.csv"
-type Grants = CsvProvider<CsvUrl>
-
-
-[<EntryPoint>]
+﻿[<EntryPoint>]
 let main argv =
-    use grants = new Grants()
-    
-    // inspect grant first row
 
-
-
-
-    // find top 10 expenses from 01/2018
-    
-    // print out top 10
-
-    // save to ./Suppliers.sqlite db table top_10_expenses
+    printfn "\n  Hello world!\n"
 
     0
 
@@ -34,13 +16,22 @@ let main argv =
 
 
 
+
+
 (*
+
+open FSharp.Data
+
+let [<Literal>] CsvUrl = "https://raw.githubusercontent.com/Devon-County-Council/spending/master/DCCSpendingOver500_201801.csv"
+type Grants = CsvProvider<CsvUrl>
+let grants = new Grants()
+
 
 let [<Literal>] CsvSchema = ",,Date=String,,,,,,,,,Expense Code=String,"
 type Grants = CsvProvider<CsvUrl, Schema=CsvSchema>
 
+open FSharp.Data.Sql
 let [<Literal>] ConnectionString = "Data Source=" + __SOURCE_DIRECTORY__ + "\\Suppliers.sqlite;Version=3;foreign keys=true"
-
 type Sql = SqlDataProvider<
                 Common.DatabaseProviderTypes.SQLITE,
                 SQLiteLibrary = Common.SQLiteLibrary.SystemDataSQLite,
