@@ -7,6 +7,10 @@ html.dimbg .slide-background {
   opacity: 0.05 !important;
 }
 
+html.lessdimbg .slide-background {
+  opacity: 0.08 !important;
+}
+
 #crossenv-table td {
   font-size: 27px;
 }
