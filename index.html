@@ -115,22 +115,23 @@ var talk = {
 				<section>
 					<h4>npm - package.json</h4>
 					<pre class="center"><code  data-noescape> {
-	<span class="fragment highlight-current-green">"name": "my-great-package",
-	"version": "1.0.0",</span>
-	<span class="fragment highlight-current-green">"description": "makes code great again",
-	"license": "MIT",
-	"author": "chester",</span>
-	<span class="fragment highlight-current-green">"dependencies": {
-		"dependency1": "1.2.3",
-		"dependency2": "2.3.4"
-	},</span>
-	<span class="fragment highlight-current-green">"scripts": {
-		"install": "make &amp;&amp; make install",
-		"postinstall": "post-install.js"
-	}</span>
+  <span class="fragment highlight-current-green">"name": "my-great-package",
+  "version": "1.0.0",</span>
+  <span class="fragment highlight-current-green">"description": "makes code great again",
+  "license": "MIT",
+  "author": "chester",</span>
+  <span class="fragment highlight-current-green">"dependencies": {
+    "dependency1": "1.2.3",
+    "dependency2": "2.3.4"
+  },</span>
+  <span class="fragment highlight-current-green">"scripts": {
+    "install": "make &amp;&amp; make install",
+    "postinstall": "post-install.js"
+  }</span>
 }</code></pre>
-					<p> executed at install:
-						<br/> preinstall, install, postinstall, prepack, prepublish, prepare</p>
+					<p> install events:
+						<br/> preinstall, install, postinstall,
+						<br/>prepack, prepublish, prepare</p>
 				</section>
 
 				<section data-external="CreateReactAppDependencies1.html"> </section>
@@ -412,11 +413,7 @@ req.end();</span>
 				</section>
 
 				<section>
-					<img src="talk/img/AsyncParallelTypes.png" width="100%" />
-				</section>
-
-				<section>
-					<video src="talk/img/AsyncFSharp.mp4" controls>Browser says no</video>
+					<img src="talk/img/AsyncDownloadExample.png" width="100%" />
 				</section>
 
 				<section>
@@ -472,6 +469,9 @@ req.end();</span>
 				<section>
 					<p>type providers demo</p>
 					<img class="fragment" src="talk/img/DevonCountyCouncilGithub.png" height="100%" />
+					<pre class="fragment">Body,Name of Body,Date,Transaction Number,Invoice Number,Amount,
+Supplier Name,Supplier ID,VAT Reg no,Expense Area,Expense Type,
+Expense Code,Creditor Type</pre>
 				</section>
 
 			</section>
@@ -556,9 +556,31 @@ TwitterBootstrap, vbasic, verisign, visualbasic, youcanttouchme</pre>
 			<section>
 				<section>
 					<h4>conclusion</h4>
-					<p>hard to catch typosquatters with Levenshtein distance approach</p>
+					<p>hard to catch typosquatters with <br/>Levenshtein distance approach</p>
 					<p>typosquatting like behaviour is common in npm</p>
-					<ul>
+					<table>
+						<tr>
+							<td>similar</td>
+							<td>preact</td>
+							<td>react</td>
+						</tr>
+						<tr>
+							<td>extend</td>
+							<td>d3fc</td>
+							<td>d3</td>
+						</tr>
+						<tr>
+							<td>bridge</td>
+							<td>bocha</td>
+							<td>mocha</td>
+						</tr>
+						<tr>
+							<td>disagreements</td>
+							<td>class-names</td>
+							<td>classnames</td>
+						</tr>
+					</table>
+					<!-- <ul>
 						<li>
 							packages are similar, e.g. preact and react
 						</li>
@@ -571,7 +593,7 @@ TwitterBootstrap, vbasic, verisign, visualbasic, youcanttouchme</pre>
 						<li>
 							naming disagreements, e.g. class-names and classnames.
 						</li>
-					</ul>
+					</ul> -->
 				</section>
 				<section>
 					<p>thanks for listening :-)</p>
