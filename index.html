@@ -91,8 +91,16 @@ var talk = {
 					<p>580k packages?!</p>
 					<div class="fragment">
 						<table>
-							<tr><td>Maven</td><td>Java</td><td>~223k</td></tr>
-							<tr><td>nuget</td><td>dotnet</td><td>~106k</td></tr>
+							<tr>
+								<td>Maven</td>
+								<td>Java</td>
+								<td>~223k</td>
+							</tr>
+							<tr>
+								<td>nuget</td>
+								<td>dotnet</td>
+								<td>~106k</td>
+							</tr>
 						</table>
 					</div>
 					<div class="fragment">
@@ -366,17 +374,16 @@ req.end();</span>
 				<section>
 					<h4>hunt</h4>
 
-					<p>over 580,000 packages ~ 1.7 E11 combinations</p>
-
 					<p>Levenshtein distance algorithm
 						<ul>
 							<li>googling provides a few implementations</li>
 							<li>fastest builds Trie from package names and uses max distance to limit computations</li>
-							<li>if distance(package, react-modal) > max,
-								<br/> no point running distance(package, react-modal-bootstrap)</li>
+							<!-- <li>if distance(package, react-modal) > max,
+								<br/> no point running distance(package, react-modal-bootstrap)</li> -->
 						</ul>
 					</p>
-					<p>run pairs in parallel, save distance &lt; 4 to csv</p>
+					<p>over 580,000 packages ~ 1.7 E11 combinations</p>
+					<p>need to run pairs in parallel, save distance &lt; 4 to csv</p>
 
 				</section>
 
@@ -412,14 +419,38 @@ req.end();</span>
 					<p>Async&lt;'a&gt; similar concept to TPL's Task&lt;T&gt;</p>
 				</section>
 
-				<section>
+<section>
+				<pre class="center"><code class="fs"data-noescape>open System.Net
+// string -> Async&lt;string option&gt;
+let <span class="fragment highlight-current-green" data-fragment-index="1">fetchAsync</span> <span class="fragment highlight-current-green" data-fragment-index="2">url</span> = <span class="fragment highlight-current-green" data-fragment-index="3">async {</span>
+    try
+      let uri = new System.Uri(url)
+      let webClient = new WebClient()
+      <span class="fragment highlight-current-green" data-fragment-index="4">let! html = webClient.AsyncDownloadString(uri)</span>
+      <span class="fragment highlight-current-green" data-fragment-index="5">return Some html</span>
+    with
+	<span class="fragment highlight-current-green" data-fragment-index="6">| ex -> return None</span>
+    <span class="fragment highlight-current-green" data-fragment-index="3">}</span>
+<span class="fragment highlight-current-green" data-fragment-index="7">let urlList = [ "http://www.microsoft.com/"; 
+    "http://msdn.microsoft.com/"]</span>
+let results = 
+        urlList                   // string list
+        |> <span class="fragment highlight-current-green" data-fragment-index="8">List.map fetchAsync</span>    // Async&lt;string option&gt; list
+        |> <span class="fragment highlight-current-green" data-fragment-index="9">Async.Parallel         // Async&lt;string option []&gt;
+        |> Async.RunSynchronously</span> // string option []
+<span class="fragment highlight-current-green" data-fragment-index="10">for result in results do
+  match result with
+  | Some html -> printfn "%s" html
+  | None      -> printfn "Failed :("</span></code></pre>
+			</section>
+
+				<!-- <section>
 					<img src="talk/img/AsyncDownloadExample.png" width="100%" />
-				</section>
+				</section> -->
 
 				<section>
 					<p>initially tried to write with workflows</p>
-					<p>added complexity due to resource contention</p>
-					<p>writing to multiple files and combining</p>
+					<p>complexity due to avoiding resource contention</p>
 					<p>re-thought approach</p>
 				</section>
 
@@ -556,7 +587,8 @@ TwitterBootstrap, vbasic, verisign, visualbasic, youcanttouchme</pre>
 			<section>
 				<section>
 					<h4>conclusion</h4>
-					<p>hard to catch typosquatters with <br/>Levenshtein distance approach</p>
+					<p>hard to catch typosquatters with
+						<br/>Levenshtein distance approach</p>
 					<p>typosquatting like behaviour is common in npm</p>
 					<table>
 						<tr>
