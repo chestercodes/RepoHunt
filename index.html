@@ -435,8 +435,8 @@ let <span class="fragment highlight-current-red" data-fragment-index="1">fetchAs
 let results = 
         urlList                   // string list
         |> <span class="fragment highlight-current-red" data-fragment-index="8">List.map fetchAsync</span>    // Async&lt;string option&gt; list
-        |> <span class="fragment highlight-current-red" data-fragment-index="9">Async.Parallel         // Async&lt;string option []&gt;
-        |> Async.RunSynchronously</span> // string option []
+        |> <span class="fragment highlight-current-red" data-fragment-index="9">Async.Parallel        </span> // Async&lt;string option []&gt;
+        |> <span class="fragment highlight-current-red" data-fragment-index="9">Async.RunSynchronously</span> // string option []
 <span class="fragment highlight-current-red" data-fragment-index="10">for result in results do
   match result with
   | Some html -> printfn "%s" html

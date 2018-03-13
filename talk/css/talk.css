@@ -1,3 +1,11 @@
+/*.reveal .slides section .fragment.highlight-current-red.current-fragment {*/
+span.highlight-current-red.current-fragment {
+    color: #ff2c2d !important; 
+}
+span.highlight-current-red.current-fragment > span {
+  color: #ff2c2d !important; 
+}
+
 .reveal pre code {
   max-height: 800px;
   max-width: 3000px; 
