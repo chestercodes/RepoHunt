@@ -1,21 +1,19 @@
 type WriterMessage = StopWriting | WriteData of string
-
 let writerActor = MailboxProcessor<WriterMessage>.Start(fun inbox-> 
     let stopAfter = 3
     let rec messageLoop nStopsSeen = async {
         let! msg = inbox.Receive()
-        
+        do! Async.Sleep (500)
         match msg with
         | StopWriting -> 
             let nStops = nStopsSeen + 1
             if nStops = stopAfter then
-                printfn "finished"
+                printfn "finished writing"
                 return ()
             else
-                printfn "stop writing"
-                return! messageLoop nStops            
+                printfn "told to stop writing"
+                return! messageLoop nStops
         | WriteData data -> 
-            do! Async.Sleep (500)
             printfn "word %s" data
             return! messageLoop nStopsSeen
     }
@@ -31,4 +29,4 @@ writerActor.Post (WriteData "five")
 writerActor.Post StopWriting
 writerActor.Post (WriteData "six")
 writerActor.Post StopWriting
-writerActor.Post (WriteData "eight")
+writerActor.Post (WriteData "seven")
