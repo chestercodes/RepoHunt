@@ -32,8 +32,17 @@ let writeActor = MailboxProcessor<NameAuthor>.Start(fun inbox->
     messageLoop ()
 )
 
-let runSearch name = async {
+let writeErrorActor = MailboxProcessor<string>.Start(fun inbox->
+    let rec messageLoop () = async {
+        let! msg = inbox.Receive()
+        File.AppendAllText(error, Environment.NewLine + msg)
+        return! messageLoop ()
+    }
     
+    messageLoop ()
+)
+
+let runSearch name =
     if alreadyWritten.Contains name then
         //printfn "Already exists."
         ()
@@ -71,20 +80,26 @@ let runSearch name = async {
                                     | _ -> None                                            
             if authorOrNull.IsSome then
                 writeActor.Post authorOrNull.Value
+            else
+                writeErrorActor.Post name
         with
             | :? System.Exception -> 
-                File.AppendAllText(error, Environment.NewLine + name)
+                writeErrorActor.Post name
                 ()
 
-}
-
-
+let packageRunningActor = MailboxProcessor<string>.Start(fun inbox->
+    let rec messageLoop () = async {
+        let! packageName = inbox.Receive()
+        runSearch packageName
+        return! messageLoop ()
+    }
+    
+    messageLoop ()
+)
 
 let enumerateOver = names //|> List.take 50
 
-enumerateOver
-|> List.map runSearch
-|> Async.Parallel
-|> Async.RunSynchronously 
+for name in enumerateOver do
+    packageRunningActor.Post name
 
 Console.ReadKey()
