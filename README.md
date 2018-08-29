@@ -16,3 +16,7 @@ This has only been run on windows (but should be able to be built to netstandard
 - Loading the produced .csv files into sqlite, steps are in src/scripts/ImportDataIntoSqlite.ps1
 - Run the script
 - - src/scripts/npm/
+
+## Talks
+
+F# bristol - f9ae67921f14ee3ce152d98b48c1103c1361da5b
