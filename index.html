@@ -35,18 +35,20 @@
 				<p>Chester Burbidge</p>
 
 				<p>
-					<a href="https://twitter.com/burbdude">@burbdude</a>
+					<a href="https://twitter.com/chestercodes">@chestercodes</a>
 				</p>
 
 				<p>
-					<a href="http://www.chesterburbidge.com/RepoHunt">chesterburbidge.com/RepoHunt</a>
+					<a href="https://chestercodes.github.io/RepoHunt/">chestercodes.github.io/RepoHunt/</a>
 				</p>
 			</section>
 
 			<section>
 				<section>
 					<h4>me</h4>
-					<p>Software Engineer at Scott Logic</p>
+					<p>currently
+						<strike>(f)</strike>unemployed</p>
+					<p>formerly Software Engineer at Scott Logic</p>
 					<p>'Back end' C#, learning to .js</p>
 					<p>F# novice ~150 hours, 1.5% expert</p>
 				</section>
@@ -65,6 +67,8 @@ var talk = {
 		"crossenv attack",
 
 		"hunt",
+
+		"F#",
 
 		"results"
 
@@ -345,6 +349,24 @@ req.end();</span>
 				<p>can use CouchDB View to get package names, authors</p>
 			</section>
 
+			<section data-background-image="talk/img/Lion.JPG" data-state="lessdimbg">
+				<section>
+					<h4>hunt</h4>
+
+					<p>Levenshtein distance algorithm
+						<ul>
+							<li>googling provides a few implementations</li>
+							<li>fastest builds Trie from package names and uses max distance to limit computations</li>
+							<!-- <li>if distance(package, react-modal) > max,
+							<br/> no point running distance(package, react-modal-bootstrap)</li> -->
+						</ul>
+					</p>
+					<p>over 580,000 packages ~ 1.7 E11 combinations</p>
+					<p>need to run pairs in parallel, save distance &lt; 4 to csv</p>
+
+				</section>
+			</section>
+
 			<section data-background-image="talk/img/FSharpLogo.png" data-state="lessdimbg">
 				<section>
 					<h4>F#</h4>
@@ -369,22 +391,39 @@ req.end();</span>
 					<p class="fragment">wanted project to practice/learn</p>
 
 				</section>
-
 				<section>
-					<h4>hunt</h4>
-
-					<p>Levenshtein distance algorithm
-						<ul>
-							<li>googling provides a few implementations</li>
-							<li>fastest builds Trie from package names and uses max distance to limit computations</li>
-							<!-- <li>if distance(package, react-modal) > max,
-								<br/> no point running distance(package, react-modal-bootstrap)</li> -->
-						</ul>
-					</p>
-					<p>over 580,000 packages ~ 1.7 E11 combinations</p>
-					<p>need to run pairs in parallel, save distance &lt; 4 to csv</p>
-
+					<h4>Clarity - FizzBuzz</h4>
+					<pre class="center"><code class="cs"data-noescape>// C#
+string FizzBuzz(int n)
+{
+  if(n % 15 == 0){
+    return "FizzBuzz";
+  } else if (n % 3 == 0) {
+    return "Fizz";
+  } else if (n % 5 == 0) {
+    return "Buzz";
+  } else {
+    return n.ToString();
+  }
+}</code></pre>
+					<pre class="center"><code class="fs"data-noescape>// F#
+let fizzbuzz n =
+  match n with
+  | x when x % 15 = 0 -> "FizzBuzz"
+  | x when x % 3 = 0  -> "Fizz"
+  | x when x % 5 = 0  -> "Buzz"
+  | x                 -> sprintf "%i" x</code></pre>
+					
 				</section>
+				<section>
+						<h4>Discriminated Unions</h4>
+						<pre class="center"><code class="cs"data-noescape>// C#
+	</code></pre>
+						<pre class="center"><code class="fs"data-noescape>// F#
+	</code></pre>
+						
+					</section>
+	
 
 				<section>
 					<h4>F# async</h4>
