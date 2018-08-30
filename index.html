@@ -29,35 +29,32 @@
 	<div class="reveal">
 		<div class="slides">
 			<script src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-			<section>
-				<h2>Hunting typosquatters
-					<br/>with F#</h2>
-				<p>Chester Burbidge</p>
 
-				<p>
-					<a href="https://twitter.com/chestercodes">@chestercodes</a>
-				</p>
 
-				<p>
-					<a href="https://chestercodes.github.io/RepoHunt/">chestercodes.github.io/RepoHunt/</a>
-				</p>
+			<section data-background-image="talk/img/CardBack.jpg">
+				<section></section>
 			</section>
-
+			<section>
+				<h4>me</h4>
+				<p>currently
+					<strike>(f)</strike>unemployed</p>
+				<p>formerly Software Engineer at Scott Logic</p>
+				<p>'Back end' C#, learning to .js</p>
+				<p>F# novice ~150 hours, 1.5% expert</p>
+			</section>
 			<section>
 				<section>
-					<h4>me</h4>
-					<p>currently
-						<strike>(f)</strike>unemployed</p>
-					<p>formerly Software Engineer at Scott Logic</p>
-					<p>'Back end' C#, learning to .js</p>
-					<p>F# novice ~150 hours, 1.5% expert</p>
+					<h2>Hunting typosquatters
+						<br/>with F#</h2>
+					<p>
+						<a href="https://chestercodes.github.io/RepoHunt/">chestercodes.github.io/RepoHunt/</a>
+					</p>
 				</section>
 
-			</section>
 
-			<section>
-				<h4>Agenda</h4>
-				<pre class="center"><code  data-noescape>
+				<section>
+					<h4>Agenda</h4>
+					<pre class="center"><code  data-noescape>
 var talk = {
 	
 	"sections": [
@@ -77,8 +74,8 @@ var talk = {
 }
 </code></pre>
 
+				</section>
 			</section>
-
 			<section data-background-image="talk/img/NpmBackground.png" data-state="dimbg">
 				<section>
 					<h4>npm</h4>
@@ -388,11 +385,9 @@ req.end();</span>
 
 					</div>
 
-					<p class="fragment">wanted project to practice/learn</p>
-
 				</section>
 				<section>
-					<h4>Clarity - FizzBuzz</h4>
+					<h4>FizzBuzz - naive</h4>
 					<pre class="center"><code class="cs"data-noescape>// C#
 string FizzBuzz(int n)
 {
@@ -410,20 +405,139 @@ string FizzBuzz(int n)
 let fizzbuzz n =
   match n with
   | x when x % 15 = 0 -> "FizzBuzz"
-  | x when x % 3 = 0  -> "Fizz"
-  | x when x % 5 = 0  -> "Buzz"
-  | x                 -> sprintf "%i" x</code></pre>
-					
+  | x when x % 3  = 0 -> "Fizz"
+  | x when x % 5  = 0 -> "Buzz"
+  | x                 -> x.ToString()</code></pre>
+
+				</section>
+
+				<section>
+					<h4>FizzBuzz - refactored</h4>
+					<pre class="center"><code class="cs"data-noescape>// C#
+public static bool DividesBy(this int n, int mod)
+{
+  return n % mod == 0;
+}
+
+public static string FizzBuzz2(int n)
+{
+  return  n.DividesBy(15) ? "FizzBuzz" : 
+            n.DividesBy(3) ? "Fizz" :
+              n.DividesBy(5) ? "Buzz" :
+                n.ToString();
+}</code></pre>
+					<pre class="center"><code class="fs"data-noescape>// F#
+let (|DividesBy|_|) modN n = if n % modN = 0 then Some n else None 
+
+let fizzbuzz2 n = 
+  match n with
+  | DividesBy 15 _ -> "FizzBuzz"
+  | DividesBy 3  _ -> "Fizz"
+  | DividesBy 5  _ -> "Buzz"
+  | x              -> x.ToString()</code></pre>
+
+				</section>
+
+
+				<section>
+					<h4>Simple Immutable Data</h4>
+					<p>Want to model a Person with a Name, Age and Address</p>
+					<p>Easily check whether two such objects are the same data</p>
+				</section>
+				
+				<section>
+					<pre class="center"><code class="cs"data-noescape>public class Person : IEquatable&lt;Person&gt;
+{
+  public int Age { get; private set; }
+  public string Name { get; private set; }
+  public Address Address { get; private set; }
+  
+  public Person(string name, int age, Address address)
+  {
+    Name = name;
+    Age = age;
+    Address = address;
+  }
+  
+  public bool Equals(Person other)
+  {
+    return other.Age == Age
+      && other.Name == Name
+      && other.Address.Equals(Address);
+  }
+}
+	</code></pre>
+				</section>
+
+				<section>
+					<pre class="center"><code class="cs"data-noescape>public class Address : IEquatable&lt;Address&gt;
+{
+    public string Line1 { get; private set; }
+    public string Line2 { get; private set; }
+    public string PostCode { get; private set; }
+	
+	public Address(string line1, string line2, string postCode)
+    {
+      Line1 = line1;
+      Line2 = line2;
+      PostCode = postCode;
+    }
+	
+	public bool Equals(Address other)
+    {
+      return other.Line1 == Line1
+        && other.Line2 == Line2 
+        && other.PostCode == PostCode;        
+  }
+}
+	</code></pre>
 				</section>
 				<section>
-						<h4>Discriminated Unions</h4>
-						<pre class="center"><code class="cs"data-noescape>// C#
-	</code></pre>
-						<pre class="center"><code class="fs"data-noescape>// F#
-	</code></pre>
-						
+					<pre class="center"><code class="cs"data-noescape>var john = new Person(
+  "John", 30, 
+  new Address("1 lane", "1 street", "BS11BS"));
+
+  var sameJohn = new Person(
+  "John", 30, 
+  new Address("1 lane", "1 street", "BS11BS"));
+
+  Console.WriteLine($"Johns are equal - " + (john.Equals(sameJohn)));
+// Johns are equal - True
+
+var sameJohnMovedNextDoor = new Person(
+  john.Name, john.Age, 
+  new Address(
+    "2 lane", // moved next door
+    john.Address.Line2, 
+    john.Address.PostCode)
+  );</code></pre>
+				</section>
+				
+				<section>
+						<pre class="center"><code class="fs"data-noescape>type Address = {Line1: string; Line2: string; PostCode: string; }
+type Person = {Name: string; Age: int; Address: Address}
+
+let john = { 
+  Name = "John"; Age = 30; 
+  Address = {Line1 = "1 lane"; Line2 = "1 street"; PostCode = "BS11BS"}}
+
+let sameJohn = { 
+  Name = "John"; Age = 30; 
+  Address = {Line1 = "1 lane"; Line2 = "1 street"; PostCode = "BS11BS"}}
+
+printfn "Johns are equal - %b" (john = sameJohn)
+
+let sameJohnMovedNextDoor = {john with Address = 
+                                   { john.Address with PostCode = ""}}
+
+						</code></pre>
 					</section>
-	
+
+				<section>
+					<h3>Maybe you're tired of seeing</h3>
+					<p>NullReferenceException</p>
+					<p>error CS1002: ; expected</p>
+				</section>
 
 				<section>
 					<h4>F# async</h4>
