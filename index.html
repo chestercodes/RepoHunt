@@ -350,6 +350,9 @@ req.end();</span>
 				<section>
 					<h4>hunt</h4>
 
+					<p>over 580,000 packages ~ 1.7 E11 combinations</p>
+					<p>need to run pairs in parallel, save distance &lt; 4 to csv</p>
+
 					<p>Levenshtein distance algorithm
 						<ul>
 							<li>googling provides a few implementations</li>
@@ -358,8 +361,13 @@ req.end();</span>
 							<br/> no point running distance(package, react-modal-bootstrap)</li> -->
 						</ul>
 					</p>
-					<p>over 580,000 packages ~ 1.7 E11 combinations</p>
-					<p>need to run pairs in parallel, save distance &lt; 4 to csv</p>
+
+				</section>
+
+				<section>
+					<h4>Trie this</h4>
+					<p>For search set of words: Cat, Cats, Cater, Count, Hat</p>
+					<img src="talk/img/LevTrie.png" width="60%" />
 
 				</section>
 			</section>
@@ -440,11 +448,12 @@ let fizzbuzz2 n =
 
 
 				<section>
-					<h4>Simple Immutable Data</h4>
+					<h4>Scenario - Simple Immutable Data</h4>
 					<p>Want to model a Person with a Name, Age and Address</p>
 					<p>Easily check whether two such objects are the same data</p>
+					<p>Want to copy the object and modify an address line</p>
 				</section>
-				
+
 				<section>
 					<pre class="center"><code class="cs"data-noescape>public class Person : IEquatable&lt;Person&gt;
 {
@@ -472,19 +481,19 @@ let fizzbuzz2 n =
 				<section>
 					<pre class="center"><code class="cs"data-noescape>public class Address : IEquatable&lt;Address&gt;
 {
-    public string Line1 { get; private set; }
-    public string Line2 { get; private set; }
-    public string PostCode { get; private set; }
+  public string Line1 { get; private set; }
+  public string Line2 { get; private set; }
+  public string PostCode { get; private set; }
 	
-	public Address(string line1, string line2, string postCode)
-    {
+  public Address(string line1, string line2, string postCode)
+  {
       Line1 = line1;
       Line2 = line2;
       PostCode = postCode;
-    }
+  }
 	
-	public bool Equals(Address other)
-    {
+  public bool Equals(Address other)
+  {
       return other.Line1 == Line1
         && other.Line2 == Line2 
         && other.PostCode == PostCode;        
@@ -497,14 +506,14 @@ let fizzbuzz2 n =
   "John", 30, 
   new Address("1 lane", "1 street", "BS11BS"));
 
-  var sameJohn = new Person(
+var sameJohn = new Person(
   "John", 30, 
   new Address("1 lane", "1 street", "BS11BS"));
 
-  Console.WriteLine($"Johns are equal - " + (john.Equals(sameJohn)));
+Console.WriteLine($"Johns are equal - " + (john.Equals(sameJohn)));
 // Johns are equal - True
 
-var sameJohnMovedNextDoor = new Person(
+var copyJohn = new Person(
   john.Name, john.Age, 
   new Address(
     "2 lane", // moved next door
@@ -512,26 +521,27 @@ var sameJohnMovedNextDoor = new Person(
     john.Address.PostCode)
   );</code></pre>
 				</section>
-				
+
 				<section>
-						<pre class="center"><code class="fs"data-noescape>type Address = {Line1: string; Line2: string; PostCode: string; }
-type Person = {Name: string; Age: int; Address: Address}
+					<pre class="center"><code class="fs"data-noescape>type Address = { Line1: string; Line2: string; PostCode: string }
 
-let john = { 
-  Name = "John"; Age = 30; 
-  Address = {Line1 = "1 lane"; Line2 = "1 street"; PostCode = "BS11BS"}}
+type Person =  { Name: string
+                 Age: int
+                 Address: Address}
 
-let sameJohn = { 
-  Name = "John"; Age = 30; 
-  Address = {Line1 = "1 lane"; Line2 = "1 street"; PostCode = "BS11BS"}}
+let john =     { Name = "John"; Age = 30
+                 Address = { Line1 = "1 lane"; Line2 = "1 street"
+                             PostCode = "BS11BS"} }
+
+let sameJohn = { Name = "John"; Age = 30
+                 Address = { Line1 = "1 lane"; Line2 = "1 street"
+                             PostCode = "BS11BS"} }
 
 printfn "Johns are equal - %b" (john = sameJohn)
 
-let sameJohnMovedNextDoor = {john with Address = 
-                                   { john.Address with PostCode = ""}}
-
-						</code></pre>
-					</section>
+let copyJohn = {john with Address = 
+                    { john.Address with Line1 = "2 lane"}}</code></pre>
+				</section>
 
 				<section>
 					<h3>Maybe you're tired of seeing</h3>
