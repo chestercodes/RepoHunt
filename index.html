@@ -396,7 +396,7 @@ req.end();</span>
 				</section>
 				<section>
 					<h4>FizzBuzz - naive</h4>
-					<pre class="center"><code class="cs"data-noescape>// C#
+					<pre class="center"><code class="cs" data-noescape>// C#
 string FizzBuzz(int n)
 {
   if(n % 15 == 0){
@@ -409,7 +409,7 @@ string FizzBuzz(int n)
     return n.ToString();
   }
 }</code></pre>
-					<pre class="center"><code class="fs"data-noescape>// F#
+					<pre class="center"><code class="fs" data-noescape>// F#
 let fizzbuzz n =
   match n with
   | x when x % 15 = 0 -> "FizzBuzz"
@@ -421,7 +421,7 @@ let fizzbuzz n =
 
 				<section>
 					<h4>FizzBuzz - refactored</h4>
-					<pre class="center"><code class="cs"data-noescape>// C#
+					<pre class="center"><code class="cs" data-noescape>// C#
 public static bool DividesBy(this int n, int mod)
 {
   return n % mod == 0;
@@ -434,7 +434,7 @@ public static string FizzBuzz2(int n)
               n.DividesBy(5) ? "Buzz" :
                 n.ToString();
 }</code></pre>
-					<pre class="center"><code class="fs"data-noescape>// F#
+					<pre class="center"><code class="fs" data-noescape>// F#
 let (|DividesBy|_|) modN n = if n % modN = 0 then Some n else None 
 
 let fizzbuzz2 n = 
@@ -446,7 +446,6 @@ let fizzbuzz2 n =
 
 				</section>
 
-
 				<section>
 					<h4>Scenario - Simple Immutable Data</h4>
 					<p>Want to model a Person with a Name, Age and Address</p>
@@ -455,7 +454,7 @@ let fizzbuzz2 n =
 				</section>
 
 				<section>
-					<pre class="center"><code class="cs"data-noescape>public class Person : IEquatable&lt;Person&gt;
+					<pre class="center"><code class="cs" data-noescape>public class Person : IEquatable&lt;Person&gt;
 {
   public int Age { get; private set; }
   public string Name { get; private set; }
@@ -479,7 +478,7 @@ let fizzbuzz2 n =
 				</section>
 
 				<section>
-					<pre class="center"><code class="cs"data-noescape>public class Address : IEquatable&lt;Address&gt;
+					<pre class="center"><code class="cs" data-noescape>public class Address : IEquatable&lt;Address&gt;
 {
   public string Line1 { get; private set; }
   public string Line2 { get; private set; }
@@ -502,7 +501,7 @@ let fizzbuzz2 n =
 	</code></pre>
 				</section>
 				<section>
-					<pre class="center"><code class="cs"data-noescape>var john = new Person(
+					<pre class="center"><code class="cs" data-noescape>var john = new Person(
   "John", 30, 
   new Address("1 lane", "1 street", "BS11BS"));
 
@@ -523,7 +522,7 @@ var copyJohn = new Person(
 				</section>
 
 				<section>
-					<pre class="center"><code class="fs"data-noescape>type Address = { Line1: string; Line2: string; PostCode: string }
+					<pre class="center"><code class="fs" data-noescape>type Address = { Line1: string; Line2: string; PostCode: string }
 
 type Person =  { Name: string
                  Age: int
@@ -549,40 +548,16 @@ let copyJohn = {john with Address =
 					<p>error CS1002: ; expected</p>
 				</section>
 
-				<section>
-					<h4>F# async</h4>
-					<div class="fragment">
-						<p>can use standard .NET classes:
-							<ul>
-								<li>Thread</li>
-								<li>AutoResetEvent</li>
-								<li>BackgroundWorker</li>
-								<li>IAsyncResult</li>
-							</ul>
-						</p>
-					</div>
 
-					<p class="fragment">Task Parallel Library</p>
-					<div class="fragment">
-						<p>F# features:
-							<ul>
-								<li>asynchronous workflows</li>
-								<li>messages and agents</li>
-							</ul>
-						</p>
-					</div>
-
-				</section>
-
-				<section>
+				<!-- <section>
 					<h4>asynchronous workflows</h4>
 					<p>object which encapsulates background task</p>
 					<p>build Async&lt;'a&gt; class from expression</p>
 					<p>Async&lt;'a&gt; similar concept to TPL's Task&lt;T&gt;</p>
-				</section>
-
+				</section> -->
+				<!-- 
 				<section>
-					<pre class="center"><code class="fs"data-noescape>open System.Net
+					<pre class="center"><code class="fs" data-noescape>open System.Net
 // string -> Async&lt;string option&gt;
 let <span class="fragment highlight-current-red" data-fragment-index="1">fetchAsync</span> <span class="fragment highlight-current-red" data-fragment-index="2">url</span> = <span class="fragment highlight-current-red" data-fragment-index="3">async {</span>
     try
@@ -604,21 +579,27 @@ let results =
   match result with
   | Some html -> printfn "%s" html
   | None      -> printfn "Failed :("</span></code></pre>
-				</section>
-
-				<!-- <section>
-					<img src="talk/img/AsyncDownloadExample.png" width="100%" />
 				</section> -->
-
-				<section>
-					<p>initially tried to write with workflows</p>
-					<p>complexity due to avoiding resource contention</p>
-					<p>re-thought approach</p>
-				</section>
-
 			</section>
 
 			<section data-background-image="talk/img/FSharpLogo.png" data-state="lessdimbg">
+
+				<section>
+					<h4>F# hunt - parallel</h4>
+					<div class="fragment">
+						<p>can use standard .NET classes/libraries</p>
+					</div>
+
+					<div class="fragment">
+						<p>F# specific:
+							<ul>
+								<li>asynchronous workflows</li>
+								<li>messages and agents</li>
+							</ul>
+						</p>
+						<p>can use agents(/actors) to manage concurrency</p>
+					</div>
+				</section>
 
 				<section>
 					<h4>messages and agents</h4>
@@ -629,19 +610,38 @@ let results =
 				</section>
 
 				<section>
-					<h4>actor paralellism</h4>
-					<img src="talk/img/ActorSystemDiagram.png" width="30%" style="float: right">
-					<div style="width: 60%;">
-						<p>need to create Trie from package names</p>
-						<p>want to paralellise the processing for each package name</p>
-						<p>can only have one actor writing to csv</p>
-					</div>
+						<pre class="center"><code class="fs" data-noescape>
+let printerAgent = <span class="fragment highlight-current-red" data-fragment-index="1">MailboxProcessor</span><span class="fragment highlight-current-red" data-fragment-index="2">&lt;string&gt;</span>.Start(<span class="fragment highlight-current-red" data-fragment-index="3">fun inbox</span> -> 
+    // the message processing function
+    <span class="fragment highlight-current-red" data-fragment-index="4">let rec messageLoop() = async {</span>
+		
+        // read a message
+        let! msg = <span class="fragment highlight-current-red" data-fragment-index="5">inbox.Receive()</span>
+		
+        // process a message
+        <span class="fragment highlight-current-red" data-fragment-index="6">printfn "message is: %s" msg</span>
+		
+        // recurse to top
+        return! <span class="fragment highlight-current-red" data-fragment-index="7">messageLoop ()</span>
+    <span class="fragment highlight-current-red" data-fragment-index="4">}</span>
+	
+    // start the loop 
+    <span class="fragment highlight-current-red" data-fragment-index="8">messageLoop()</span>
+)
 
-				</section>
+<span class="fragment highlight-current-red" data-fragment-index="9">printerAgent.Post "hello world!"
+printerAgent.Post "hello world! again..."</span>
+						</code></pre>
+					</section>
+	
 
 				<section>
-					<p>actor system demo...</p>
+					<h4>actor paralellism</h4>
+					
+					<img src="talk/img/ActorDiagram.png" width="90%" >
+					
 				</section>
+
 			</section>
 
 			<section data-background-image="talk/img/FSharpLogo.png" data-state="lessdimbg">
