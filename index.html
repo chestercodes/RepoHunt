@@ -522,24 +522,25 @@ var copyJohn = new Person(
 				</section>
 
 				<section>
-					<pre class="center"><code class="fs" data-noescape>type Address = { Line1: string; Line2: string; PostCode: string }
+					<pre class="center"><code class="fs" data-noescape>
+type Address<span class="fragment highlight-current-red" data-fragment-index="1"> = {</span> <span class="fragment highlight-current-red" data-fragment-index="2">Line1: string;</span> Line2: string; PostCode: string <span class="fragment highlight-current-red" data-fragment-index="1">}</span>
 
-type Person =  { Name: string
+type Person =  <span class="fragment highlight-current-red" data-fragment-index="3">{ Name: string
                  Age: int
-                 Address: Address}
+                 Address: Address }</span>
 
-let john =     { Name = "John"; Age = 30
+let john =     <span class="fragment highlight-current-red" data-fragment-index="3">{</span> Name = "John"; Age = 30
                  Address = { Line1 = "1 lane"; Line2 = "1 street"
-                             PostCode = "BS11BS"} }
+                             PostCode = "BS11BS"} <span class="fragment highlight-current-red" data-fragment-index="3">}</span>
 
-let sameJohn = { Name = "John"; Age = 30
+let sameJohn = <span class="fragment highlight-current-red" data-fragment-index="3">{</span> Name = "John"; Age = 30
                  Address = { Line1 = "1 lane"; Line2 = "1 street"
-                             PostCode = "BS11BS"} }
+                             PostCode = "BS11BS"} <span class="fragment highlight-current-red" data-fragment-index="3">}</span>
 
 printfn "Johns are equal - %b" (john = sameJohn)
 
-let copyJohn = {john with Address = 
-                    { john.Address with Line1 = "2 lane"}}</code></pre>
+let copyJohn = <span class="fragment highlight-current-red" data-fragment-index="4">{</span> john with Address = 
+                    { john.Address with Line1 = "2 lane"} <span class="fragment highlight-current-red" data-fragment-index="4">}</span></code></pre>
 				</section>
 
 				<section>
