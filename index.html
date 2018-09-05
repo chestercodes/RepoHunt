@@ -160,10 +160,24 @@ var talk = {
 				<section>
 					<img src="talk/img/NodeModulesHeavy.png" width="80%" height="80%" />
 				</section>
-
+<!-- <section data-background-image="talk/img/CouchDb.png" data-state="dimbg"> -->
+			<section >
+					<h4>data</h4>
+				<p>npmjs.com data stored in CouchDB database</p>
+				<p>key-value store, value is JSON object:</p>
+				<pre class="center"><code  data-noescape>{
+  <span class="fragment highlight-current-red">"name": "d3fc"</span>,
+  "maintainers": [ 
+    <span class="fragment highlight-current-red">{ "name": "chrisprice" }, 
+    { "name": "colineberhardt" }</span>
+  ],
+  "versions": {
+    "13.1.1": { "contents of the": "package.json ..." }
+  }
+}</code></pre>
+				<p>can use CouchDB View to get package names, authors</p>
+				</section>
 			</section>
-
-
 
 			<section data-background-image="talk/img/CrossEnvBackground.jpg" data-state="dimbg">
 				<section>
@@ -340,24 +354,6 @@ req.end();</span>
 					<p>need package names and authors</p>
 				</section>
 			</section>
-
-			<section data-background-image="talk/img/CouchDb.png" data-state="dimbg">
-				<h4>data</h4>
-				<p>npmjs.com data stored in CouchDB database</p>
-				<p>key-value store, value is JSON object:</p>
-				<pre class="center"><code  data-noescape>{
-  <span class="fragment highlight-current-red">"name": "d3fc"</span>,
-  "maintainers": [ 
-    <span class="fragment highlight-current-red">{ "name": "chrisprice" }, 
-    { "name": "colineberhardt" }</span>
-  ],
-  "versions": {
-    "13.1.1": { "contents of the": "package.json ..." }
-  }
-}</code></pre>
-				<p>can use CouchDB View to get package names, authors</p>
-			</section>
-
 			<section data-background-image="talk/img/Lion.JPG" data-state="lessdimbg">
 				<section>
 					<h4>hunt</h4>
@@ -378,7 +374,7 @@ req.end();</span>
 
 				<section>
 					<h4>Trie this</h4>
-					<p>For search set of words: Cat, Cats, Cater, Count, Hat</p>
+					<p>For search set of words: <br/> Cat, Cats, Cater, Count, Hat</p>
 					<img src="talk/img/LevTrie.png" width="60%" />
 
 				</section>
@@ -673,11 +669,19 @@ printerAgent.Post "hello world! again..."</span>
 				</section>
 
 				<section>
-					<p>type providers demo</p>
-					<img class="fragment" src="talk/img/DevonCountyCouncilGithub.png" height="100%" />
+					<p>type providers demo: <br/> a new hope</p>
+					
+				</section>
+
+				<section>
+					<p>type providers demo: the IO strikes back</p>
+					
+					<img class="fragment" src="talk/img/DevonCountyCouncilGithub.png" height="90%" />
+					
 					<pre class="fragment">Body,Name of Body,Date,Transaction Number,Invoice Number,Amount,
 Supplier Name,Supplier ID,VAT Reg no,Expense Area,Expense Type,
 Expense Code,Creditor Type</pre>
+
 				</section>
 
 			</section>
@@ -815,10 +819,10 @@ TwitterBootstrap, vbasic, verisign, visualbasic, youcanttouchme</pre>
 							type providers:
 							<ul>
 								<li>
-									<a href="http://fsharp.github.io/FSharp.Data/index.html">FSharp.Data</a>
+									<a href="https://fsprojects.github.io/FSharp.Text.RegexProvider/">RegexProvider</a>
 								</li>
 								<li>
-									<a href="http://fsprojects.github.io/SQLProvider/">SQLProvider</a>
+									<a href="http://fsharp.github.io/FSharp.Data/index.html">FSharp.Data</a>
 								</li>
 							</ul>
 						</li>
