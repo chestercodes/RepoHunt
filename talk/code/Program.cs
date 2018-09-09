@@ -8,6 +8,10 @@ namespace code
     {
         static void Main(string[] args)
         {
+            var pc = new PostCodeRegex();
+            pc.Run();
+            return;
+
             Enumerable.Range(1, 20)
                 .Select(FizzBuzz)
                 .ToList().ForEach(Console.WriteLine);

@@ -60,6 +60,7 @@
     <None Include="Program.Complete" />
     <None Include="App.config" />
     <Content Include="packages.config" />
+    <None Include="build.fsx" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="FSharp.Text.RegexProvider">

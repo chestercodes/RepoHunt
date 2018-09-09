@@ -556,39 +556,6 @@ let copyJohn = <span class="fragment highlight-current-red" data-fragment-index=
 					<p>NullReferenceException</p>
 					<p>error CS1002: ; expected</p>
 				</section>
-
-
-				<!-- <section>
-					<h4>asynchronous workflows</h4>
-					<p>object which encapsulates background task</p>
-					<p>build Async&lt;'a&gt; class from expression</p>
-					<p>Async&lt;'a&gt; similar concept to TPL's Task&lt;T&gt;</p>
-				</section> -->
-				<!-- 
-				<section>
-					<pre class="center"><code class="fs" data-noescape>open System.Net
-// string -> Async&lt;string option&gt;
-let <span class="fragment highlight-current-red" data-fragment-index="1">fetchAsync</span> <span class="fragment highlight-current-red" data-fragment-index="2">url</span> = <span class="fragment highlight-current-red" data-fragment-index="3">async {</span>
-    try
-      let uri = new System.Uri(url)
-      let webClient = new WebClient()
-      <span class="fragment highlight-current-red" data-fragment-index="4">let! html = webClient.AsyncDownloadString(uri)</span>
-      <span class="fragment highlight-current-red" data-fragment-index="5">return Some html</span>
-    with
-	<span class="fragment highlight-current-red" data-fragment-index="6">| ex -> return None</span>
-    <span class="fragment highlight-current-red" data-fragment-index="3">}</span>
-<span class="fragment highlight-current-red" data-fragment-index="7">let urlList = [ "http://www.microsoft.com/"; 
-    "http://msdn.microsoft.com/"]</span>
-let results = 
-        urlList                   // string list
-        |> <span class="fragment highlight-current-red" data-fragment-index="8">List.map fetchAsync</span>    // Async&lt;string option&gt; list
-        |> <span class="fragment highlight-current-red" data-fragment-index="9">Async.Parallel        </span> // Async&lt;string option []&gt;
-        |> <span class="fragment highlight-current-red" data-fragment-index="9">Async.RunSynchronously</span> // string option []
-<span class="fragment highlight-current-red" data-fragment-index="10">for result in results do
-  match result with
-  | Some html -> printfn "%s" html
-  | None      -> printfn "Failed :("</span></code></pre>
-				</section> -->
 			</section>
 
 			<section data-background-image="talk/img/FSharpLogo.png" data-state="lessdimbg">
@@ -670,7 +637,24 @@ printerAgent.Post "hello world! again..."</span>
 
 				<section>
 					<p>type providers demo: <br/> a new hope</p>
-					
+					<pre class="center fragment"><code class="cs" data-noescape>
+public string ParsePostCodeRegion(string input)
+{
+    const string Region = "Region";
+
+    var postcode = "(?<" + Region + ">^[A-Z]{1,2})" + 
+                   "\\d{1,2}\\s*\\d{1,2}[A-Z]{1,2}$";
+
+    var match = new Regex(p).Match(input);
+
+    if (match.Success)
+    {
+        return match.Groups[Region].Value;
+    }
+
+    return null;
+}
+						</code></pre>
 				</section>
 
 				<section>
