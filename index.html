@@ -30,7 +30,7 @@
 		<div class="slides">
 			<script src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-
+			
 			<section data-background-image="talk/img/CardBack.jpg">
 				<section></section>
 			</section>
@@ -43,9 +43,9 @@
 				<p>F# novice ~150 hours, 1.5% expert</p>
 
 				<aside class="notes">
-					Hi there and thanks for coming to my talk. My name is chester burbidge and i'm currently funemployed. 
-					I was recently a Software Engineer at Scott Logic, most of my experience has been 'backend' C#.
-					I'm not an expert on F#, i've maybe spent 150 odd hours messing around with it. I'm definitely a novice functional developer.
+					Hi there and thanks for coming to my talk. My name is chester burbidge and i'm currently funemployed. I was recently a Software
+					Engineer at Scott Logic, most of my experience has been 'backend' C#. I'm not an expert on F#, i've maybe spent 150
+					odd hours messing around with it. I'm definitely a novice functional developer.
 				</aside>
 			</section>
 			<section>
@@ -55,11 +55,11 @@
 					<p>
 						<a href="https://chestercodes.github.io/RepoHunt/">chestercodes.github.io/RepoHunt/</a>
 					</p>
-					
+
 					<aside class="notes">
-						Now that you know who I am, this is my talk 'Hunting typosquatters with F#'
-						This talk is designed for someone who knows nothing about any of the words in the title.
-						It is a story and a brief introduction to some of the cool features of the F# language.
+						Now that you know who I am, this is my talk 'Hunting typosquatters with F#' This talk is designed for someone who knows nothing
+						about any of the words in the title. It is a story and a brief introduction to some of the cool features of the F#
+						language.
 					</aside>
 				</section>
 
@@ -160,12 +160,12 @@ var talk = {
 				<section>
 					<img src="talk/img/NodeModulesHeavy.png" width="80%" height="80%" />
 				</section>
-<!-- <section data-background-image="talk/img/CouchDb.png" data-state="dimbg"> -->
-			<section >
+				<!-- <section data-background-image="talk/img/CouchDb.png" data-state="dimbg"> -->
+				<section>
 					<h4>data</h4>
-				<p>npmjs.com data stored in CouchDB database</p>
-				<p>key-value store, value is JSON object:</p>
-				<pre class="center"><code  data-noescape>{
+					<p>npmjs.com data stored in CouchDB database</p>
+					<p>key-value store, value is JSON object:</p>
+					<pre class="center"><code  data-noescape>{
   <span class="fragment highlight-current-red">"name": "d3fc"</span>,
   "maintainers": [ 
     <span class="fragment highlight-current-red">{ "name": "chrisprice" }, 
@@ -175,7 +175,7 @@ var talk = {
     "13.1.1": { "contents of the": "package.json ..." }
   }
 }</code></pre>
-				<p>can use CouchDB View to get package names, authors</p>
+					<p>can use CouchDB View to get package names, authors</p>
 				</section>
 			</section>
 
@@ -374,7 +374,8 @@ req.end();</span>
 
 				<section>
 					<h4>Trie this</h4>
-					<p>For search set of words: <br/> Cat, Cats, Cater, Count, Hat</p>
+					<p>For search set of words:
+						<br/> Cat, Cats, Cater, Count, Hat</p>
 					<img src="talk/img/LevTrie.png" width="60%" />
 
 				</section>
@@ -550,24 +551,51 @@ printfn "Johns are equal - %b" (john = sameJohn)
 let copyJohn = <span class="fragment highlight-current-red" data-fragment-index="4">{</span> john with Address = 
                     { john.Address with Line1 = "2 lane"} <span class="fragment highlight-current-red" data-fragment-index="4">}</span></code></pre>
 				</section>
-
+				
 				<section>
-					<h3>Reasons</h3>
-					<p class="fragment">Concise:
-						<ul>
-							<li>type inference</li>
-							<li>less boilerplate</li>
-						</ul>
-					</p>
-					<p>Clear, intuitive</p>
-					<p>Immutable by default</p>
+					<img src="talk/img/CFInterop.png" width="100%" height="100%">
 				</section>
 
 				<section>
-					<h3>Other reasons</h3>
-					<p class="fragment">NullReferenceException</p>
-					<p class="fragment">Domain modelling: <br/>Sum types, Units of measure</p>
-					<p class="fragment">Scripting / REPL</p>
+					<h4>Reasons to try</h4>
+					<ul>
+						<li class="fragment">Concise:
+							<ul>
+								<li class="fragment">type inference</li>
+								<li class="fragment">less boilerplate</li>
+	
+							</ul>
+						</li>
+						<li class="fragment">Clear, intuitive</li>
+						<li class="fragment">Correctness:
+							<ul>
+								<li class="fragment">Immutable by default</li>
+								<li class="fragment">NullReferenceException</li>
+							</ul>
+						</li>
+					</ul>
+				</section>
+	
+				<section>
+					<h4>Other reasons</h4>
+					
+					<ul>
+						<li class="fragment">Domain modelling:
+							<ul>
+								<li class="fragment">Sum types</li>
+								<li class="fragment">Units of measure</li>
+							</ul>
+						</li>
+						<li class="fragment">Productivity:
+							<ul>
+								<li class="fragment">Interop</li>
+								<li class="fragment">REPL</li>
+								<li class="fragment">Scripting</li>
+							</ul>
+						</li>
+						<li class="fragment">Type providers</li>
+						<li class="fragment">Parallel...</li>
+					</ul>
 				</section>
 			</section>
 
@@ -586,12 +614,12 @@ let copyJohn = <span class="fragment highlight-current-red" data-fragment-index=
 								<li>messages and agents</li>
 							</ul>
 						</p>
-						<p>can use agents(/actors) to manage concurrency</p>
+						<p>can use agents(actors) to manage concurrency</p>
 					</div>
 				</section>
 
 				<section>
-					<h4>messages and agents</h4>
+					<h4>messages and agents(actors)</h4>
 
 					<p>create actors, communicate via messages</p>
 					<p>actor processes typed messages sequentially from inbox queue</p>
@@ -599,7 +627,7 @@ let copyJohn = <span class="fragment highlight-current-red" data-fragment-index=
 				</section>
 
 				<section>
-						<pre class="center"><code class="fs" data-noescape>
+					<pre class="center"><code class="fs" data-noescape>
 let printerAgent = <span class="fragment highlight-current-red" data-fragment-index="1">MailboxProcessor</span><span class="fragment highlight-current-red" data-fragment-index="2">&lt;string&gt;</span>.Start(<span class="fragment highlight-current-red" data-fragment-index="3">fun inbox</span> -> 
     // the message processing function
     <span class="fragment highlight-current-red" data-fragment-index="4">let rec messageLoop() = async {</span>
@@ -621,14 +649,14 @@ let printerAgent = <span class="fragment highlight-current-red" data-fragment-in
 <span class="fragment highlight-current-red" data-fragment-index="9">printerAgent.Post "hello world!"
 printerAgent.Post "hello world! again..."</span>
 						</code></pre>
-					</section>
-	
+				</section>
+
 
 				<section>
 					<h4>actor paralellism</h4>
-					
-					<img src="talk/img/ActorDiagram.png" width="90%" >
-					
+
+					<img src="talk/img/ActorDiagram.png" width="90%">
+
 				</section>
 
 			</section>
@@ -649,7 +677,8 @@ printerAgent.Post "hello world! again..."</span>
 				</section>
 
 				<section>
-					<p>type providers demo: <br/> a new hope</p>
+					<p>type providers demo:
+						<br/> a new hope</p>
 					<pre class="center fragment"><code class="cs" data-noescape>
 public string ParsePostCodeRegion(string input)
 {
@@ -672,9 +701,9 @@ public string ParsePostCodeRegion(string input)
 
 				<section>
 					<p>type providers demo: the IO strikes back</p>
-					
+
 					<img class="fragment" src="talk/img/DevonCountyCouncilGithub.png" height="90%" />
-					
+
 					<pre class="fragment">Body,Name of Body,Date,Transaction Number,Invoice Number,Amount,
 Supplier Name,Supplier ID,VAT Reg no,Expense Area,Expense Type,
 Expense Code,Creditor Type</pre>
