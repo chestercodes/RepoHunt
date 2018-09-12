@@ -552,9 +552,22 @@ let copyJohn = <span class="fragment highlight-current-red" data-fragment-index=
 				</section>
 
 				<section>
-					<h3>Maybe you're tired of seeing</h3>
-					<p>NullReferenceException</p>
-					<p>error CS1002: ; expected</p>
+					<h3>Reasons</h3>
+					<p class="fragment">Concise:
+						<ul>
+							<li>type inference</li>
+							<li>less boilerplate</li>
+						</ul>
+					</p>
+					<p>Clear, intuitive</p>
+					<p>Immutable by default</p>
+				</section>
+
+				<section>
+					<h3>Other reasons</h3>
+					<p class="fragment">NullReferenceException</p>
+					<p class="fragment">Domain modelling: <br/>Sum types, Units of measure</p>
+					<p class="fragment">Scripting / REPL</p>
 				</section>
 			</section>
 
@@ -642,10 +655,10 @@ public string ParsePostCodeRegion(string input)
 {
     const string Region = "Region";
 
-    var postcode = "(?<" + Region + ">^[A-Z]{1,2})" + 
-                   "\\d{1,2}\\s*\\d{1,2}[A-Z]{1,2}$";
+    var pattern = "(?<" + Region + ">^[A-Z]{1,2})" + 
+                  "\\d{1,2}\\s*\\d{1,2}[A-Z]{1,2}$";
 
-    var match = new Regex(p).Match(input);
+    var match = new Regex(pattern).Match(input);
 
     if (match.Success)
     {
