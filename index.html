@@ -735,6 +735,28 @@ public string ParsePostCodeRegion(string input)
 Supplier Name,Supplier ID,VAT Reg no,Expense Area,Expense Type,
 Expense Code,Creditor Type</pre>
 
+					
+						<aside class="notes">
+							Demo:
+							In this demo we want to use the devon county council spending data to find out something interesting. 
+							Since we have the fields  Suppier Name and amount we can try to find the top 10 suppliers that the council spent money on.
+							This is a standard dotnet core F# console project. I also have a powershell terminal open at the directory and can build and run like so.
+							The data is in .csv format, we are going to use the FSharp.Data nuget package and the CsvProvider to read the csv.
+							The data can be found at a specific github url determined by the user, repository and revision. 
+							I'm going to copy a bit of code to start, this includes the url of the csv and a simple record type SupplierAmount to store the subset of the data that we are interested in.
+							We can create a grants type using the CsvProvider by passing in the url of the file and can then instantiate this type to a value.
+							This grants value has a Rows property which is an enumeration, if we take the first of the enumeration we can inspect what the type provider has generated
+							looking at the first of the rows we can see that we have typed properties for all of the columns in the .csv. 
+							In the background this type provider has downloaded part of the file from the url, parsed some of the first rows and created typed properties based on the data in the first rows.
+
+							With easy access to this data we can simply project the properties to our record class, groupby the supplier name, sumBy the amount and sort by descending on the amount sum and take the first 10.
+							If we try to run the code we get an error, this error is a mistake in the sniffing of the column type. It believes that an expense code column is a integer and is failing to convert the Date column.
+							Fixing this is simple and shows another cool feature of the type provider, we can specify a schema to tell the provider the actual types of these columns. 
+							We don't even need to specify all of the colunm types, just the ones that the code gets wrong. 
+							With that correction the code prints out the correct values to the screen. 
+							This hopefully shows the power of F# type providers, we have compiler verified, typed access to a remote csv file with a simple calculation in 25 lines of code.
+
+						</aside>
 				</section>
 
 			</section>
