@@ -385,9 +385,11 @@ req.end();</span>
 						<br /> Cat, Cats, Cater, Count, Hat</p>
 					<img src="talk/img/LevTrie.png" width="60%" />
 					<aside class="notes">
-						Since we know all of the words to be compared to each other we can used a trie based method to narrow down the search space. 
+						Since we know all of the words to be compared to each other we can used a trie based method to narrow down the
+						search space.
 						The method works by creating a trie of all of the words and picking a maximum limit for the Levenshtein distance.
-						Each word is then compared against the branches of the trie, node by node until the lev distance is greater than the maximum limit and the rest of the branch is ignored.
+						Each word is then compared against the branches of the trie, node by node until the lev distance is greater than
+						the maximum limit and the rest of the branch is ignored.
 						This method cuts down the processing time considerably.
 					</aside>
 				</section>
@@ -581,12 +583,15 @@ var copyJohn = new Person(
     john.Address.PostCode)
   );</code></pre>
 
-					
+
 					<aside class="notes">
-						The first two slides show the code involved to model an immutable Person with Age, Name and Address. 
-						We have to pass everything in via the constructor and override the Equals method to equate to another Person, making sure to use .Equals on the Address, which is always a fun bug to find.
-						This slide shows the instantiation of these classes, nothing crazy but we just create 2 johns with the same values and check that they are equal.
-						To modify a john we then need to call the constructor with all of the properties one by one and changing just the address line 1. This can get ugly very quickly if dealing with complex objects.
+						The first two slides show the code involved to model an immutable Person with Age, Name and Address.
+						We have to pass everything in via the constructor and override the Equals method to equate to another Person,
+						making sure to use .Equals on the Address, which is always a fun bug to find.
+						This slide shows the instantiation of these classes, nothing crazy but we just create 2 johns with the same
+						values and check that they are equal.
+						To modify a john we then need to call the constructor with all of the properties one by one and changing just the
+						address line 1. This can get ugly very quickly if dealing with complex objects.
 
 						Now we can see the equivalent code in F#.
 					</aside>
@@ -612,31 +617,39 @@ printfn "Johns are equal - %b" (john = sameJohn)
 
 let copyJohn = <span class="fragment highlight-current-red" data-fragment-index="4">{</span> john with Address = 
                     { john.Address with Line1 = "2 lane"} <span class="fragment highlight-current-red" data-fragment-index="4">}</span></code></pre>
-				
+
 					<aside class="notes">
-						With F# the whole of the code fits onto this slide, the first four lines of text take the place of the first two slides of C#.
-						The first line defines a record type to represent the Address. A record type is like an immutable named tuple which uses structural equality.
-						In this case the values in the record type are between the curly braces, they are the addresses Line1, Line2 and PostCode all of type string.
-						
-						The Person is also a record type which contains a Name of type string, an Age of type int and an Address of type address.
+						With F# the whole of the code fits onto this slide, the first four lines of text take the place of the first two
+						slides of C#.
+						The first line defines a record type to represent the Address. A record type is like an immutable named tuple
+						which uses structural equality.
+						In this case the values in the record type are between the curly braces, they are the addresses Line1, Line2 and
+						PostCode all of type string.
+
+						The Person is also a record type which contains a Name of type string, an Age of type int and an Address of type
+						address.
 						We can see the way that records are created here. The red highlighted braces are Person records being created.
-						To create a record type one uses curly braces and assigns the values to the named properties. 
-						The compiler knows which type is being created by the named properties being used. In this case the names for the Person are Name, Age and Address.
+						To create a record type one uses curly braces and assigns the values to the named properties.
+						The compiler knows which type is being created by the named properties being used. In this case the names for the
+						Person are Name, Age and Address.
 						The Address is also a record type of the names Line1, Line2 and PostCode.
 
-						Checking for equality is as easy as checking for any other equality and copying an object and modifying a value has a really nice syntax.
-						The highlighted braces show the john being copied with the Address property being modified to the previous value but with the Line1 changed.
+						Checking for equality is as easy as checking for any other equality and copying an object and modifying a value
+						has a really nice syntax.
+						The highlighted braces show the john being copied with the Address property being modified to the previous value
+						but with the Line1 changed.
 					</aside>
 				</section>
 
 				<section>
 					<img src="talk/img/CFInterop.png" width="100%" height="100%">
-					
+
 					<aside class="notes">
-						If you like the idea of record types and want to use them to save yourself some C# cruft, the F#/C# interop is very useful.
+						If you like the idea of record types and want to use them to save yourself some C# cruft, the F#/C# interop is
+						very useful.
 						Here we have a view of a visual studio solution with two projects, an F# library and a C# console app.
 						The top window shows the Address and Person record classes and the bottom one shows how they can be used in C#.
-						They automatically receive an immutable constructor which is typed and named appropriately. 
+						They automatically receive an immutable constructor which is typed and named appropriately.
 						This could be a way to introduce F# into work life if one felt so inclined.
 					</aside>
 				</section>
@@ -741,12 +754,15 @@ printerAgent.Post "hello world! again..."</span>
 					<h4>actor paralellism</h4>
 
 					<img src="talk/img/ActorDiagram.png" width="90%">
-					
+
 					<aside class="notes">
-						I used F# actors to control the paralellism of the processing. The code builds up the trie structure and then creates multiple processing actors.
-						The processing actors then receive a message consisting of the trie and one of the 580k words to process. 
-						The processing actor runs the Levenshtein algorithm against the trie and gets a list of the word pairings below a distance of 3 and their distances.
-						The processing actors post the results to a single csv file writing actor which appends the results to a csv file. 
+						I used F# actors to control the paralellism of the processing. The code builds up the trie structure and then
+						creates multiple processing actors.
+						The processing actors then receive a message consisting of the trie and one of the 580k words to process.
+						The processing actor runs the Levenshtein algorithm against the trie and gets a list of the word pairings below a
+						distance of 3 and their distances.
+						The processing actors post the results to a single csv file writing actor which appends the results to a csv
+						file.
 						This single csv file actor processes messages one by one, so there is less chance of resource contention issues.
 					</aside>
 				</section>
@@ -770,7 +786,7 @@ printerAgent.Post "hello world! again..."</span>
 				</section>
 
 				<section>
-					<p>demo: type providers
+					<p><a href="talk/img/TypeProvider1Demo.mp4">demo</a>: type providers
 						<br /> a new hope</p>
 					<pre class="center fragment"><code class="cs" data-noescape>
 public string ParsePostCodeRegion(string input)
@@ -792,49 +808,28 @@ public string ParsePostCodeRegion(string input)
 						</code></pre>
 
 					<aside class="notes">
-						Demo: In this demo we want to show what the parsing of the postcode regex can look like if we use an F# type
-						provider We
-						have a normal console application in F# with a few things setup: There is the pattern for the regex which is the
-						same
-						as the last slide but has an attribute to say that it is a compile time literal value There is a function called
-						parseRegion
-						which is going to take in a string inpu and provide either a Some of the region value or a None to determine that
-						the
-						string didn't parse. There is the input which is a valid postcode witha region of AB and a line to print this
-						info
-						to the console There is a call to the parseRegion function which we pattern match on to give us information of
-						whether
-						the parsing was successful which is then printed to the console. Some will print out success and None will print
-						failed
-						to parse We can run the program by building it and running it in the package manager console which is a
-						powershell
-						prompt. We are currently in the bin debug directory and running Regex.exe produces the failed output. I've
-						previously
-						added the type provider which is a nuget package and we can see this by running get-package in the console As
-						with
-						C# to use the type provider in code we need to write open and the type provider package name, this is the same as
-						using
-						in C# we can then create a type with the provider, to do this we need to call the Regex type provider with the
-						pattern
-						in a way which looks like C# generics This creates the type PostcodeRegex, this is similar in API and concept to
-						the
-						Regex class in C# but with a crucial difference. If we instantiate the type and then use the TypedMatch method on
-						the
-						input to get a result we can inspect this result We can see that the result has a Region property which
-						corresponds
-						to the named group in the regex pattern. This property is generated by the type provider and has properties
-						relating
-						to whether the regex matched and the value of the named group. We can then pattern match on the property for
-						cases
-						where the result.Region has a true value for Success and return the Value if so with the catch all case returning
-						None
-						if it can't match the regex. This shows how type providers give us a new level of correctness checking via the
-						compiler.
-						If we change the name of the group in the regex then we can see the the code will fail to compile and even
-						suggest
-						which property that we might mean to use. This was a simple example which could be seen to be a bit trivial, fear
-						not!
-						i will show a more complex example next.
+						Demo: In this demo we want to show what the parsing of the postcode regex can look like if we use an F# type provider.
+						We have a normal console application in F# with a few things setup:
+							There is the pattern for the regex which is the same as the last slide but has an attribute to say that it is a compile time literal value
+							There is a function called parseRegion which is going to take in a string input and provide either a Some of the region value or a None to determine that the string didn't parse.
+							There is the input which is a valid postcode witha region of AB and a line to print this info to the console 
+							There is a call to the parseRegion function which we pattern match on to give us information of whether the parsing was successful which is then printed to the console. 
+							Some will print out success and None will print failed to parse 
+						We can run the program by building it and running it in the package manager console which is a powershell prompt. 
+						We are currently in the bin debug directory and running Regex.exe produces the failed output. 
+						I've previously added the type provider which is a nuget package and we can see this by running get-package in the console.
+						As with C# to use the type provider in code we need to write open and the type provider package name, this is the same as using in C# 
+						We can then create a type with the provider, to do this we need to call the Regex type provider with the pattern in a way which looks like C# generics.
+						This creates the type PostcodeRegex, this is similar in API and concept to the Regex class in C# but with a crucial difference. 
+						If we instantiate the type and then use the TypedMatch method on the input to get a result we can inspect this result 
+						We can see that the result has a Region property which corresponds to the named group in the regex pattern. 
+						This property is generated by the type provider and has properties relating to whether the regex matched and the value of the named group. 
+						We can then pattern match on the property for cases where the result.
+						Region has a true value for Success and return the Value if so with the catch all case returning None if it can't match the regex. 
+						This shows how type providers give us a new level of correctness checking via the compiler.
+						If we change the name of the group in the regex then we can see the the code will fail to compile and even suggest which property that we might mean to use. 
+						This was a simple example which could be seen to be a bit trivial, fear not! 
+						I will show a more complex example next.
 					</aside>
 
 				</section>
