@@ -385,7 +385,12 @@ req.end();</span>
 					<p>For search set of words:
 						<br /> Cat, Cats, Cater, Count, Hat</p>
 					<img src="talk/img/LevTrie.png" width="60%" />
-
+					<aside class="notes">
+						Since we know all of the words to be compared to each other we can used a trie based method to narrow down the search space. 
+						The method works by creating a trie of all of the words and picking a maximum limit for the Levenshtein distance.
+						Each word is then compared against the branches of the trie, node by node until the lev distance is greater than the maximum limit and the rest of the branch is ignored.
+						This method cuts down the processing time considerably.
+					</aside>
 				</section>
 			</section>
 
@@ -576,6 +581,16 @@ var copyJohn = new Person(
     john.Address.Line2, 
     john.Address.PostCode)
   );</code></pre>
+
+					
+					<aside class="notes">
+						The first two slides show the code involved to model an immutable Person with Age, Name and Address. 
+						We have to pass everything in via the constructor and override the Equals method to equate to another Person, making sure to use .Equals on the Address, which is always a fun bug to find.
+						This slide shows the instantiation of these classes, nothing crazy but we just create 2 johns with the same values and check that they are equal.
+						To modify a john we then need to call the constructor with all of the properties one by one and changing just the address line 1. This can get ugly very quickly if dealing with complex objects.
+
+						Now we can see the equivalent code in F#.
+					</aside>
 				</section>
 
 				<section>
@@ -598,10 +613,33 @@ printfn "Johns are equal - %b" (john = sameJohn)
 
 let copyJohn = <span class="fragment highlight-current-red" data-fragment-index="4">{</span> john with Address = 
                     { john.Address with Line1 = "2 lane"} <span class="fragment highlight-current-red" data-fragment-index="4">}</span></code></pre>
+				
+					<aside class="notes">
+						With F# the whole of the code fits onto this slide, the first four lines of text take the place of the first two slides of C#.
+						The first line defines a record type to represent the Address. A record type is like an immutable named tuple which uses structural equality.
+						In this case the values in the record type are between the curly braces, they are the addresses Line1, Line2 and PostCode all of type string.
+						
+						The Person is also a record type which contains a Name of type string, an Age of type int and an Address of type address.
+						We can see the way that records are created here. The red highlighted braces are Person records being created.
+						To create a record type one uses curly braces and assigns the values to the named properties. 
+						The compiler knows which type is being created by the named properties being used. In this case the names for the Person are Name, Age and Address.
+						The Address is also a record type of the names Line1, Line2 and PostCode.
+
+						Checking for equality is as easy as checking for any other equality and copying an object and modifying a value has a really nice syntax.
+						The highlighted braces show the john being copied with the Address property being modified to the previous value but with the Line1 changed.
+					</aside>
 				</section>
 
 				<section>
 					<img src="talk/img/CFInterop.png" width="100%" height="100%">
+					
+					<aside class="notes">
+						If you like the idea of record types and want to use them to save yourself some C# cruft, the F#/C# interop is very useful.
+						Here we have a view of a visual studio solution with two projects, an F# library and a C# console app.
+						The top window shows the Address and Person record classes and the bottom one shows how they can be used in C#.
+						They automatically receive an immutable constructor which is typed and named appropriately. 
+						This could be a way to introduce F# into work life if one felt so inclined.
+					</aside>
 				</section>
 
 				<section>
