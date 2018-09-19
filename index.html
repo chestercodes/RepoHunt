@@ -429,12 +429,12 @@ string FizzBuzz(int n)
   }
 }</code></pre>
 					<pre class="center"><code class="fs" data-noescape>// F#
-let fizzbuzz n =
-  match n with
-  | x when x % 15 = 0 -> "FizzBuzz"
-  | x when x % 3  = 0 -> "Fizz"
-  | x when x % 5  = 0 -> "Buzz"
-  | x                 -> x.ToString()</code></pre>
+<span class="fragment highlight-current-red" data-fragment-index="1">let fizzbuzz n =</span>
+  <span class="fragment highlight-current-red" data-fragment-index="2">match n with</span>
+  <span class="fragment highlight-current-red" data-fragment-index="3">| x when x % 15 = 0</span> -> <span class="fragment highlight-current-red" data-fragment-index="4">"FizzBuzz"</span>
+  <span class="fragment highlight-current-red" data-fragment-index="5">| x when x % 3  = 0 -> "Fizz"
+  | x when x % 5  = 0 -> "Buzz"</span>
+  <span class="fragment highlight-current-red" data-fragment-index="6">| x                 -> x.ToString()</span></code></pre>
 
 					<aside class="notes">
 						To get an idea of how great F# is i'd like to show some comparisons between F# and C# code. Going to start with
@@ -451,7 +451,7 @@ let fizzbuzz n =
 						parameters are used. It's not perfect, sometimes it needs to be given a hint, but it's very very good.
 						Then everything which is one indentation away from the level of the function declaration is included in the
 						function body.
-						There is also no return keyword used, the return value is the last expression in the function.
+						There is also no return keyword used, the return value is the value of the last expression in the function.
 
 						In our case the function only has one expression which is a pattern matching on the input n.
 						This pattern matching says to take n and match it against the patterns one by one and returns the expression
@@ -481,11 +481,11 @@ public static string FizzBuzz2(int n)
                 n.ToString();
 }</code></pre>
 					<pre class="center"><code class="fs" data-noescape>// F#
-let (|DividesBy|_|) modN n = if n % modN = 0 then Some n else None 
+<span class="fragment highlight-current-red" data-fragment-index="3">let (|DividesBy|_|)</span> modN n = if n % modN = 0 then Some n else None 
 
 let fizzbuzz2 n = 
   match n with
-  | DividesBy 15 _ -> "FizzBuzz"
+  | <span class="fragment highlight-current-red" data-fragment-index="3">DividesBy 15</span> _ -> "FizzBuzz"
   | DividesBy 3  _ -> "Fizz"
   | DividesBy 5  _ -> "Buzz"
   | x              -> x.ToString()</code></pre>
