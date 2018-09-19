@@ -356,10 +356,9 @@ req.end();</span>
 					<h4>other attacks?</h4>
 					<p>search npm for existing typosquatters</p>
 					<p>low distance pairs of names
-						<br />crossenv and cross-env
+						<br />e.g. crossenv and cross-env
 						<br /> typosquatting?</p>
 					<p>find low distances, aggregate by author</p>
-					<p>need package names and authors</p>
 				</section>
 			</section>
 			<section data-background-image="talk/img/Lion.JPG" data-state="lessdimbg">
@@ -714,7 +713,7 @@ let copyJohn = <span class="fragment highlight-current-red" data-fragment-index=
 
 				<section>
 					<pre class="center"><code class="fs" data-noescape>
-let printerAgent = <span class="fragment highlight-current-red" data-fragment-index="1">MailboxProcessor</span><span class="fragment highlight-current-red" data-fragment-index="2">&lt;string&gt;</span>.Start(<span class="fragment highlight-current-red" data-fragment-index="3">fun inbox</span> -> 
+let printerActor = <span class="fragment highlight-current-red" data-fragment-index="1">MailboxProcessor</span><span class="fragment highlight-current-red" data-fragment-index="2">&lt;string&gt;</span>.Start(<span class="fragment highlight-current-red" data-fragment-index="3">fun inbox</span> -> 
     // the message processing function
     <span class="fragment highlight-current-red" data-fragment-index="4">let rec messageLoop() = async {</span>
 		
@@ -742,7 +741,14 @@ printerAgent.Post "hello world! again..."</span>
 					<h4>actor paralellism</h4>
 
 					<img src="talk/img/ActorDiagram.png" width="90%">
-
+					
+					<aside class="notes">
+						I used F# actors to control the paralellism of the processing. The code builds up the trie structure and then creates multiple processing actors.
+						The processing actors then receive a message consisting of the trie and one of the 580k words to process. 
+						The processing actor runs the Levenshtein algorithm against the trie and gets a list of the word pairings below a distance of 3 and their distances.
+						The processing actors post the results to a single csv file writing actor which appends the results to a csv file. 
+						This single csv file actor processes messages one by one, so there is less chance of resource contention issues.
+					</aside>
 				</section>
 
 			</section>
@@ -764,7 +770,7 @@ printerAgent.Post "hello world! again..."</span>
 				</section>
 
 				<section>
-					<p>type providers demo:
+					<p>demo: type providers
 						<br /> a new hope</p>
 					<pre class="center fragment"><code class="cs" data-noescape>
 public string ParsePostCodeRegion(string input)
@@ -834,7 +840,7 @@ public string ParsePostCodeRegion(string input)
 				</section>
 
 				<section>
-					<p>type providers demo: the IO strikes back</p>
+					<p><a href="talk/img/TypeProvider2Demo.mp4">demo</a>: type providers - the IO strikes back</p>
 
 					<img class="fragment" src="talk/img/DevonCountyCouncilGithub.png" height="90%" />
 

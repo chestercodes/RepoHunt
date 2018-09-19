@@ -23,10 +23,10 @@ let main argv =
 
 open FSharp.Data
 let [<Literal>] CsvUrl = "https://raw.githubusercontent.com/Devon-County-Council/spending/master/DCCSpendingOver500_201801.csv"    // let [<Literal>] CsvUrl = __SOURCE_DIRECTORY__ + "\\DCCSpendingOver500_201801.csv"
+type SupplierAmount = {SupplierName: string; Amount: decimal}
 
 type Grants = CsvProvider<CsvUrl>
 let grants = new Grants()
-type SupplierAmount = {SupplierName: string; Amount: decimal}
 
 
 
