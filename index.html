@@ -426,7 +426,7 @@ req.end();</span>
 
 				</section>
 				<section>
-					<h4>FizzBuzz - naive</h4>
+					<h4>FizzBuzz</h4>
 					<pre class="center"><code class="cs" data-noescape>// C#
 string FizzBuzz(int n)
 {
@@ -440,6 +440,12 @@ string FizzBuzz(int n)
     return n.ToString();
   }
 }</code></pre>
+					
+				</section>
+
+				<section>
+					<h4>F#izzBuzz</h4>
+
 					<pre class="center"><code class="fs" data-noescape>// F#
 <span class="fragment highlight-current-red" data-fragment-index="1">let fizzbuzz n =</span>
   <span class="fragment highlight-current-red" data-fragment-index="2">match n with</span>
@@ -447,6 +453,17 @@ string FizzBuzz(int n)
   <span class="fragment highlight-current-red" data-fragment-index="5">| x when x % 3  = 0 -> "Fizz"
   | x when x % 5  = 0 -> "Buzz"</span>
   <span class="fragment highlight-current-red" data-fragment-index="6">| x                 -> x.ToString()</span></code></pre>
+
+					
+					<pre class="center fragment"><code class="fs" data-noescape>// F#
+<span class="fragment highlight-current-red" data-fragment-index="3">let (|DividesBy|_|)</span> modN n = if n % modN = 0 then Some n else None 
+
+let fizzbuzz2 n = 
+  match n with
+  | <span class="fragment highlight-current-red" data-fragment-index="3">DividesBy 15</span> _ -> "FizzBuzz"
+  | DividesBy 3  _ -> "Fizz"
+  | DividesBy 5  _ -> "Buzz"
+  | x              -> x.ToString()</code></pre>
 
 					<aside class="notes">
 						To get an idea of how great F# is i'd like to show some comparisons between F# and C# code. Going to start with
@@ -472,42 +489,7 @@ string FizzBuzz(int n)
 						string FizzBuzz.
 						The same happens for the other cases until the catch all which returns the value of the number .ToString()
 
-						This was the basic version of fizzbuzz, on the next slide I'll show what a refactored version of both the C# and
-						F# versions looks like.
-					</aside>
-				</section>
-
-				<section>
-					<h4>FizzBuzz - refactored</h4>
-					<pre class="center"><code class="cs" data-noescape>// C#
-public static bool DividesBy(this int n, int mod)
-{
-  return n % mod == 0;
-}
-
-public static string FizzBuzz2(int n)
-{
-  return  n.DividesBy(15) ? "FizzBuzz" : 
-            n.DividesBy(3) ? "Fizz" :
-              n.DividesBy(5) ? "Buzz" :
-                n.ToString();
-}</code></pre>
-					<pre class="center"><code class="fs" data-noescape>// F#
-<span class="fragment highlight-current-red" data-fragment-index="3">let (|DividesBy|_|)</span> modN n = if n % modN = 0 then Some n else None 
-
-let fizzbuzz2 n = 
-  match n with
-  | <span class="fragment highlight-current-red" data-fragment-index="3">DividesBy 15</span> _ -> "FizzBuzz"
-  | DividesBy 3  _ -> "Fizz"
-  | DividesBy 5  _ -> "Buzz"
-  | x              -> x.ToString()</code></pre>
-
-					<aside class="notes">
-						Here are the two bits of code which i've refactored to how I would write them.
-						The C# version uses an extension method for DividesBy and, maybe controversially, nested ternaries for the rest
-						of the function.
-
-						The F# version remains quite similar apart from the extraction of a partial active pattern called DividesBy.
+						We can refactor this and extract a partial active pattern called DividesBy.
 						What i'd like to emphasise here is how terse and expressive this becomes. You're left with code that reads like
 						english which i'm a big fan of.
 						This seems to be a nice consequence of the syntax of F# in that the code can be very terse and intuitive, maybe
