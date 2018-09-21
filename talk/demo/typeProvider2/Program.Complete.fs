@@ -1,31 +1,22 @@
 ﻿open FSharp.Data
-open FSharp.Data.Sql
-
-let [<Literal>] CsvSchema = """,,Date=String,,,,,,,,,Expense Code=String,"""
-let [<Literal>] CsvUrl = "https://raw.githubusercontent.com/Devon-County-Council/spending/master/DCCSpendingOver500_201801.csv"
+let [<Literal>] CsvUrl = "https://raw.githubusercontent.com/Devon-County-Council/spending/master/DCCSpendingOver500_201801.csv"    //let [<Literal>] CsvUrl = __SOURCE_DIRECTORY__ + "\\DCCSpendingOver500_201801.csv"
+type SupplierAmount = {SupplierName: string; Amount: decimal}
+let [<Literal>] CsvSchema = ",,Date=String,,,,,,,,,Expense Code=String,"
 type Grants = CsvProvider<CsvUrl, Schema=CsvSchema>
+let grants = Grants()
 
 [<EntryPoint>]
 let main argv =
-    use grants = new Grants()
-    let first = grants.Rows |> Seq.head
-    
-    let top10 = grants.Rows 
+    let top10  = grants.Rows 
                 |> Seq.groupBy (fun x -> x.``Supplier Name``)
-                |> Seq.map (fun x -> 
-                    let name = fst x
-                    let totalAmount = snd x |> Seq.sumBy (fun y -> y.Amount)
-                    name, totalAmount
-                )
-                |> Seq.sortByDescending snd
+                |> Seq.map (fun g -> 
+                    let name = fst g
+                    let totes = (snd g) |> Seq.sumBy (fun x -> x.Amount)
+                    {SupplierName = name; Amount = totes}
+                    )
+                |> Seq.sortByDescending (fun x -> x.Amount)
                 |> Seq.take 10
+    for x in top10 do 
+        printfn "%s - %f" x.SupplierName x.Amount
 
-    for supplier in top10 do
-        let name = fst supplier
-        let amount = float (snd supplier)
-        printfn "supplier - %s, amount - %s" name (amount.ToString("0.00"))
-                
-    
     0
-
-
